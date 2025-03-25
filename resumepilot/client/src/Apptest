@@ -1,0 +1,70 @@
+import { useState } from "react";
+
+export default function ResumeBuilder() {
+  const [jobDescription, setJobDescription] = useState("");
+  const [coverLetter, setCoverLetter] = useState("");
+
+  return (
+    <div className="p-6 max-w-4xl mx-auto">
+      <h1 className="text-2xl font-bold">ResumePilot</h1>
+      <div className="text-blue-500 cursor-pointer">Dashboard | Logout</div>
+      
+      <section className="mt-4">
+        <h2 className="text-xl font-semibold">My Resumes</h2>
+        <button className="bg-blue-500 text-white px-3 py-1 rounded mt-2">+ New Resume</button>
+        <ul className="mt-2">
+          <li>Resume #1 <button className="bg-gray-300 px-2 mx-1">Edit</button> <button className="bg-red-500 text-white px-2">Delete</button></li>
+          <li>Resume #2 <button className="bg-gray-300 px-2 mx-1">Edit</button> <button className="bg-red-500 text-white px-2">Delete</button></li>
+        </ul>
+      </section>
+
+      <section className="mt-6">
+        <h2 className="text-xl font-semibold">Resume Builder</h2>
+        <div className="grid grid-cols-2 gap-2 mt-2">
+          <input type="text" placeholder="Your full name" className="border p-2 w-full" />
+          <textarea placeholder="Write a brief summary..." className="border p-2 w-full"></textarea>
+          <input type="text" placeholder="Job Title" className="border p-2 w-full" />
+          <input type="text" placeholder="Company Name" className="border p-2 w-full" />
+          <textarea placeholder="Description / Responsibilities" className="border p-2 w-full"></textarea>
+          <input type="text" placeholder="School Name" className="border p-2 w-full" />
+          <input type="text" placeholder="Degree / Field of Study" className="border p-2 w-full" />
+          <input type="text" placeholder="Comma-separated skills" className="border p-2 w-full" />
+        </div>
+      </section>
+      
+      <section className="mt-6">
+        <h2 className="text-xl font-semibold">AI Resume Enhancer</h2>
+        <textarea
+          placeholder="Paste the job description here..."
+          className="border p-2 w-full mt-2"
+          value={jobDescription}
+          onChange={(e) => setJobDescription(e.target.value)}
+        ></textarea>
+        <button className="bg-blue-500 text-white px-3 py-1 mt-2">Enhance My Resume</button>
+      </section>
+
+      <section className="mt-6">
+        <h2 className="text-xl font-semibold">AI Suggestions</h2>
+        <ul className="mt-2 list-disc pl-5">
+          <li>Rewritten bullet: "Increased ticket response time by 40%..."</li>
+          <li>Suggested skill: "Cross-functional communication"</li>
+        </ul>
+      </section>
+      
+      <section className="mt-6">
+        <h2 className="text-xl font-semibold">AI-Generated Cover Letter</h2>
+        <textarea
+          placeholder="Generated cover letter will appear here..."
+          className="border p-2 w-full mt-2"
+          value={coverLetter}
+          onChange={(e) => setCoverLetter(e.target.value)}
+        ></textarea>
+        <div className="mt-2">
+          <button className="bg-blue-500 text-white px-3 py-1">Generate Cover Letter</button>
+          <button className="bg-gray-300 px-3 py-1 ml-2">Preview PDF</button>
+          <button className="bg-green-500 text-white px-3 py-1 ml-2">Download PDF</button>
+        </div>
+      </section>
+    </div>
+  );
+}
