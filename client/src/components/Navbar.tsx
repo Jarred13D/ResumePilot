@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../utils/auth';
 
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
