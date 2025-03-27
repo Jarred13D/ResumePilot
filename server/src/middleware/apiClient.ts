@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { getToken, clearToken } from './tokenService';
-import { clear } from '@testing-library/user-event/dist/clear';
 
 const API_URL = 'http://localhost:3000/api/v1';
 
