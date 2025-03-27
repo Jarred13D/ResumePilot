@@ -16,7 +16,8 @@ interface EducationAttributes {
 
 interface EducationCreationAttributes extends Optional<EducationAttributes, 'id'> {}
 
-export class Education extends Model<EducationAttributes, EducationCreationAttributes> {
+export class Education extends Model<EducationAttributes, EducationCreationAttributes> 
+  implements EducationAttributes {
   public id!: number;
   public resumeId!: number;
   public institution!: string;
@@ -29,65 +30,63 @@ export class Education extends Model<EducationAttributes, EducationCreationAttri
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
-  public static initialize(sequelize: Sequelize): typeof Education {
-    return super.init(
-      {
-        id: {
-          type: DataTypes.INTEGER,
-          autoIncrement: true,
-          primaryKey: true,
-        },
-        resumeId: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: 'resumes',
-            key: 'id'
-          }
-        },
-        institution: {
-          type: DataTypes.STRING(200),
-          allowNull: false,
-        },
-        degree: {
-          type: DataTypes.STRING(200),
-          allowNull: false,
-        },
-        fieldOfStudy: {
-          type: DataTypes.STRING(200),
-          allowNull: false,
-        },
-        startDate: {
-          type: DataTypes.DATE,
-          allowNull: false,
-        },
-        endDate: {
-          type: DataTypes.DATE,
-          allowNull: true,
-        },
-        gpa: {
-          type: DataTypes.DECIMAL(3, 2),
-          allowNull: true,
-          validate: {
-            min: 0.0,
-            max: 4.0
-          }
-        },
-        description: {
-          type: DataTypes.TEXT,
-          allowNull: true,
-        }
-      },
-      {
-        tableName: 'education',
-        sequelize,
-      }
-    );
-  }
 }
 
 export function EducationFactory(sequelize: Sequelize): typeof Education {
-  Education.initialize(sequelize);
+  Education.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      resumeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'resumes',
+          key: 'id'
+        }
+      },
+      institution: {
+        type: DataTypes.STRING(200),
+        allowNull: false,
+      },
+      degree: {
+        type: DataTypes.STRING(200),
+        allowNull: false,
+      },
+      fieldOfStudy: {
+        type: DataTypes.STRING(200),
+        allowNull: false,
+      },
+      startDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      endDate: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      gpa: {
+        type: DataTypes.DECIMAL(3, 2),
+        allowNull: true,
+        validate: {
+          min: 0.0,
+          max: 4.0
+        }
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      }
+    },
+    {
+      tableName: 'education',
+      sequelize,
+    }
+  );
+
   return Education;
 }
 
@@ -109,4 +108,5 @@ export function setupEducationAssociations(models: {
     foreignKey: 'resumeId',
     as: 'resume'
   });
+
 }
