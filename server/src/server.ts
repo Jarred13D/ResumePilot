@@ -1,12 +1,9 @@
 const forceDatabaseRefresh = false;
 
-import dotenv from 'dotenv';
-dotenv.config();
-
 import express from 'express';
 import sequelize from './config/connection.js';
 import routes from './routes/index.js';
-import cors from 'cors';
+import cors from 'cors'; // allows cross-origin resource sharing, allowing the client to make requests to the server from a different domain (may not need this)
 import dotenv from 'dotenv';
 import aiRoutes from './routes/aiRoutes.js';
 
