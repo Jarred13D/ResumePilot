@@ -34,7 +34,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 
 // POST /resume - Create a new resume
 router.post('/', async (req: Request, res: Response) => {
-    const { } = req.body;
+    const { // resume input data } = req.body;
     try {
       const newResume = await ResumeData.create({ //.add info here });
       res.status(201).json(newResume);
