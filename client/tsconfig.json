@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "typeRoots": ["node_modules/@types", "src/types"],
 
     /* Linting */
     "strict": true,
@@ -20,6 +21,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": [
+    "src/**/*",
+    "src/types/custom-elements.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
