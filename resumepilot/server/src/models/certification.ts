@@ -19,8 +19,7 @@ interface CertificationCreationAttributes
 
 export class Certification
   extends Model<CertificationAttributes, CertificationCreationAttributes>
-  implements CertificationAttributes
-{
+  implements CertificationAttributes {
   public id!: number;
   public resumeId!: number;
   public name!: string;
@@ -101,3 +100,23 @@ export function CertificationFactory(
 
   return Certification;
 }
+
+export function setupCertificationAssociations(models: {
+  Resume: any;
+  Certification: any;
+}) {
+  const { Resume, Certification } = models;
+
+  Resume.hasMany(Certification, {
+    sourceKey: "id",
+    foreignKey: "resumeId",
+    as: "certifications",
+  });
+
+  Certification.belongsTo(Resume, {
+    targetKey: "id",
+    foreignKey: "resumeId",
+    as: "resume",
+  });
+}
+

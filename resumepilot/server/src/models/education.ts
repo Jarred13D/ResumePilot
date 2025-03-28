@@ -32,7 +32,8 @@ export class Education extends Model<EducationAttributes, EducationCreationAttri
   public readonly updatedAt!: Date;
 }
 
-export function EducationFactory(sequelize: Sequelize): typeof Education {
+export function EducationFactory(
+  sequelize: Sequelize): typeof Education {
   Education.init(
     {
       id: {
