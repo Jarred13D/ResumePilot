@@ -27,14 +27,14 @@ export default function AppTheme(props: AppThemeProps) {
           typography,
           shadows,
           shape,
-          components: {
-            ...inputsCustomizations,
-            ...dataDisplayCustomizations,
-            ...feedbackCustomizations,
-            ...navigationCustomizations,
-            ...surfacesCustomizations,
-            ...themeComponents,
-          },
+          // components: {
+          //   ...inputsCustomizations,
+          //   ...dataDisplayCustomizations,
+          //   ...feedbackCustomizations,
+          //   ...navigationCustomizations,
+          //   ...surfacesCustomizations,
+          //   ...themeComponents,
+          // },
         });
   }, [disableCustomTheme, themeComponents]);
   if (disableCustomTheme) {
