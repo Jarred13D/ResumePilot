@@ -1,5 +1,5 @@
 import sequelize from '../config/connection.js'
-import { Sequelize } from 'sequelize';
+// import { Sequelize } from 'sequelize';
 
 // import all factory functions
 import { UserFactory } from './user.js';
