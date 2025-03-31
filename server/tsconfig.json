@@ -1,5 +1,5 @@
 {
-    // "extends": "../tsconfig.json",
+    "extends": "../tsconfig.json",
     "compilerOptions": {
       /* Modules */
       "rootDir": "src" /* Specify the root folder within your source files. */,
@@ -10,5 +10,6 @@
       // "noEmitOnError": true /* Disable emitting files if any type checking errors are reported. */
     },
     "include": ["src"],
+    "exclude": ["node_modules", "dist"],
     "typeRoots": ["./node_modules/@types", "./src/types"]
 }
