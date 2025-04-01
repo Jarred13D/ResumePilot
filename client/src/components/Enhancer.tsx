@@ -8,6 +8,8 @@ const ResumeEnhancer = () => {
     skills: '',
     experience: '',
     education: '',
+    certifications: '',
+    projects: '',
   });
 
   const [chatGptInput, setChatGptInput] = useState('');
@@ -84,6 +86,22 @@ const ResumeEnhancer = () => {
           <textarea
             name="education"
             value={resume.education}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Certifications:
+          <textarea
+            name="certifications"
+            value={resume.certifications}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Projects:
+          <textarea
+            name="projects"
+            value={resume.projects}
             onChange={handleChange}
           />
         </label>
