@@ -8,6 +8,8 @@ import { CertificationFactory, setupCertificationAssociations } from './certific
 import { ContactFactory } from './contact.js';
 import { ExperienceFactory, setupExperienceAssociations } from './experience.js';
 import { EducationFactory, setupEducationAssociations } from './education.js';
+import { SkillFactory, setupSkillAssociations } from './skills.js';
+import { ProjectFactory, setupProjectAssociations } from './projects.js';
 
 // init models
 const User = UserFactory(sequelize);
@@ -16,6 +18,8 @@ const Certification = CertificationFactory(sequelize);
 const Contact = ContactFactory(sequelize);
 const Experience = ExperienceFactory(sequelize);
 const Education = EducationFactory(sequelize);
+const Skill = SkillFactory(sequelize);
+const Project = ProjectFactory(sequelize);
 
 // setup all assocaitions
 User.hasMany(Resume, {
@@ -28,6 +32,30 @@ Resume.belongsTo(User, {
   targetKey: "id",
   foreignKey: "userId",
   as: "user",
+});
+
+Resume.hasMany(Skill, {
+  sourceKey: "id",
+  foreignKey: "resumeId",
+  as: "skills",
+});
+
+Project.hasMany(Skill, {
+  sourceKey: "id",
+  foreignKey: "projectId",
+  as: "skills",
+});
+
+Resume.hasMany(Project, {
+  sourceKey: "id",
+  foreignKey: "resumeId",
+  as: "projects",
+})
+
+Skill.belongsTo(Resume, {
+  targetKey: "id",
+  foreignKey: "resumeId",
+  as: "resume",
 });
 
 // Contact assoc as one-to-one relationship
@@ -61,6 +89,18 @@ setupCertificationAssociations({
   Certification,
 });
 
+// Skill assocs
+setupSkillAssociations({
+  Resume,
+  Skill,
+});
+
+// Project assocs
+setupProjectAssociations({
+  Resume,
+  Project,
+});
+
 // export initalized models
 export {
   User,
@@ -68,7 +108,9 @@ export {
   Certification,
   Contact,
   Experience,
-  Education
+  Education,
+  Skill,
+  Project
 };
   
 // export types if needed
@@ -95,5 +137,7 @@ export default {
   Certification,
   Contact,
   Experience,
-  Education
+  Education,
+  Skill,
+  Project
 };
