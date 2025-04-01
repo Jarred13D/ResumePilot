@@ -9,7 +9,7 @@ const app = express();
 const port = 3000;
 
 // Configure OpenAI
-const openai = new OpenAI({ apiKey: 'your-openai-api-key' });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // Configure multer for file uploads
 const upload = multer({ dest: 'uploads/' });
