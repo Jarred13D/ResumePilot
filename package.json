@@ -34,10 +34,11 @@
     "openai": "^4.90.0",
     "pdf-parse": "^1.1.1",
     "pdfkit": "^0.16.0",
-    "pg": "^8.11.5",
+    "pg": "^8.14.1",
+    "pg-hstore": "^2.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.7"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
