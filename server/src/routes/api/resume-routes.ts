@@ -62,20 +62,5 @@ router.put('/:id', async (req: Request, res: Response) => {
     }
   });
 
-// DELETE /resume/:id - Delete resume info by id
-router.delete('/:id', async (req: Request, res: Response) => {
-    const { id } = req.params;
-    try {
-      const user = await ResumeData.findByPk(id);
-      if (resumeInfo) {
-        await resumeInfo.destroy();
-        res.json({ message: 'Resume info deleted' });
-      } else {
-        res.status(404).json({ message: 'Resume info not found' });
-      }
-    } catch (error: any) {
-      res.status(500).json({ message: error.message });
-    }
-  });
   
   export { router as resumeRouter };
