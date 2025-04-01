@@ -7,8 +7,8 @@ import './index.css';
 import App from './App.tsx';
 
 import ErrorPage from './pages/ErrorPage.tsx';
-import Home from './pages/Home.tsx';
-import Login from './pages/Login.tsx';
+import MarketingPage from './components/Marketing-Page/MarketingPage.tsx';
+import Login from './pages/Login';
 
 const clientId = '506570133414-uh9vrkmdgan9mqt50g3jv62hfh2kot45.apps.googleusercontent.com';
 
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        element: <MarketingPage />
       }, 
       {
         path: '/login',
@@ -32,9 +32,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId={clientId}>
+    {/* <GoogleOAuthProvider clientId={clientId}> */}
       <RouterProvider router={router} />
       <App />
-    </GoogleOAuthProvider>
+    {/* </GoogleOAuthProvider> */}
   </React.StrictMode>,
 );
