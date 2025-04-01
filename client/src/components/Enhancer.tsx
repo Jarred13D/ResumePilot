@@ -110,7 +110,7 @@ const ResumeEnhancer = () => {
 
       <div className="chat-gpt-enhancement">
         <label>
-          Ask ChatGPT to enhance your resume:
+          Ask ChatGPT to enhance your Resume:
           <textarea
             value={chatGptInput}
             onChange={(e) => setChatGptInput(e.target.value)}
