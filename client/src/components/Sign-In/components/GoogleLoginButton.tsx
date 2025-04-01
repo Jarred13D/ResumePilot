@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleLogin, googleLogout, useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import axios from 'axios';
 
 const GoogleLoginButton: React.FC = () => {
