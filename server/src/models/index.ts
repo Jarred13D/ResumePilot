@@ -89,6 +89,18 @@ setupCertificationAssociations({
   Certification,
 });
 
+// Skill assocs
+setupSkillAssociations({
+  Resume,
+  Skill,
+});
+
+// Project assocs
+setupProjectAssociations({
+  Resume,
+  Project,
+});
+
 // export initalized models
 export {
   User,
