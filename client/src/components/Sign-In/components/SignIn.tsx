@@ -17,6 +17,7 @@ import ForgotPassword from './ForgotPassword';
 import AppTheme from '../../../shared-theme/AppTheme';
 import ColorModeSelect from '../../../shared-theme/ColorModeSelect';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
+import  AppAppBar  from '../../Marketing-Page/components/AppAppbar';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -116,6 +117,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 
   return (
     <AppTheme {...props}>
+      <AppAppBar />
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
         <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
@@ -206,14 +208,14 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             >
               Sign in with Google
             </Button>
-            <Button
+            {/* <Button
               fullWidth
               variant="outlined"
               onClick={() => alert('Sign in with Facebook')}
               startIcon={<FacebookIcon />}
             >
               Sign in with Facebook
-            </Button>
+            </Button> */}
             <Typography sx={{ textAlign: 'center' }}>
               Don&apos;t have an account?{' '}
               <Link
