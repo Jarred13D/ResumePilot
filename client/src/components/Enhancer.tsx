@@ -23,6 +23,7 @@ const ResumeEnhancer = () => {
       [name]: value,
     }));
   };
+  
 
   // Function to handle the submission of resume enhancement request to ChatGPT
   const handleEnhanceResume = async () => {
