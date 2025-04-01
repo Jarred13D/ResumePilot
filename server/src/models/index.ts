@@ -9,6 +9,7 @@ import { ContactFactory } from './contact.js';
 import { ExperienceFactory, setupExperienceAssociations } from './experience.js';
 import { EducationFactory, setupEducationAssociations } from './education.js';
 import { SkillFactory, setupSkillAssociations } from './skills.js';
+import { ProjectFactory, setupProjectAssociations } from './projects.js';
 
 // init models
 const User = UserFactory(sequelize);
@@ -18,6 +19,7 @@ const Contact = ContactFactory(sequelize);
 const Experience = ExperienceFactory(sequelize);
 const Education = EducationFactory(sequelize);
 const Skill = SkillFactory(sequelize);
+const Project = ProjectFactory(sequelize);
 
 // setup all assocaitions
 User.hasMany(Resume, {
@@ -37,6 +39,18 @@ Resume.hasMany(Skill, {
   foreignKey: "resumeId",
   as: "skills",
 });
+
+Project.hasMany(Skill, {
+  sourceKey: "id",
+  foreignKey: "projectId",
+  as: "skills",
+});
+
+Resume.hasMany(Project, {
+  sourceKey: "id",
+  foreignKey: "resumeId",
+  as: "projects",
+})
 
 Skill.belongsTo(Resume, {
   targetKey: "id",
@@ -83,7 +97,8 @@ export {
   Contact,
   Experience,
   Education,
-  Skill
+  Skill,
+  Project
 };
   
 // export types if needed
@@ -111,5 +126,6 @@ export default {
   Contact,
   Experience,
   Education,
-  Skill
+  Skill,
+  Project
 };
