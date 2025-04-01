@@ -10,7 +10,7 @@ import ErrorPage from './pages/ErrorPage.tsx';
 import Home from './pages/Home.tsx';
 import Login from './pages/Login.tsx';
 
-const clientId = 'YOUR_GOOGLE_CLIENT_ID';
+const clientId = '506570133414-uh9vrkmdgan9mqt50g3jv62hfh2kot45.apps.googleusercontent.com';
 
 const router = createBrowserRouter([
   {

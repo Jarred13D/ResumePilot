@@ -21,12 +21,7 @@ const GoogleLoginButton: React.FC = () => {
         <div>
             <GoogleLogin
                 onSuccess={handleLoginSuccess}
-                onFailure={(error) => console.error('Login failed:', error)}
-                onLogout={() => {
-                    googleLogout();
-                    console.log('User logged out');
-                }}
-                style={{ marginTop: '10px' }}
+                onError={() => console.error('Login failed')}
             />
             <button onClick={() => googleLogout()}>Logout</button>
         </div>
