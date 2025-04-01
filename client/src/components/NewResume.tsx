@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import auth from '../utils/auth';
+=======
 import React, { useState } from 'react';
 
 const NewResume = () => {
@@ -60,3 +65,4 @@ const NewResume = () => {
 };
 
 export default NewResume;
+>>>>>>> main
