@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import auth from '../utils/auth';
+=======
 import { useState } from 'react';
 import { jsPDF } from 'jspdf';
 
@@ -53,3 +58,4 @@ const CoverLetterGenerator = () => {
 };
 
 export default CoverLetterGenerator;
+>>>>>>> main
