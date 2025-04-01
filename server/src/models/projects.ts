@@ -7,14 +7,13 @@ interface ProjectAttributes {
   description: string;
   startDate: Date;
   endDate?: Date;
-  isOngoing: boolean;
+  // isOngoing: boolean;
   url?: string;
   githubUrl?: string;
   technologies: string[];
-  highlights?: string[];
-  role?: string;
-  teamSize?: number;
-  imageUrls?: string[];
+  // role?: string;
+  // teamSize?: number;
+  // imageUrls?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -31,14 +30,13 @@ export class Project
   public description!: string;
   public startDate!: Date;
   public endDate?: Date;
-  public isOngoing!: boolean;
+  // public isOngoing!: boolean;
   public url?: string;
   public githubUrl?: string;
   public technologies!: string[];
-  public highlights?: string[];
-  public role?: string;
-  public teamSize?: number;
-  public imageUrls?: string[];
+  // public role?: string;
+  // public teamSize?: number;
+  // public imageUrls?: string[];
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -98,11 +96,11 @@ export function ProjectFactory(sequelize: Sequelize): typeof Project {
           },
         },
       },
-      isOngoing: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
+      // isOngoing: {
+      //   type: DataTypes.BOOLEAN,
+      //   allowNull: false,
+      //   defaultValue: false,
+      // },
       url: {
         type: DataTypes.STRING(2048),
         allowNull: true,
@@ -127,38 +125,33 @@ export function ProjectFactory(sequelize: Sequelize): typeof Project {
         allowNull: false,
         defaultValue: [],
       },
-      highlights: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: true,
-        defaultValue: [],
-      },
-      role: {
-        type: DataTypes.STRING(100),
-        allowNull: true,
-      },
-      teamSize: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        validate: {
-          min: 1,
-        },
-      },
-      imageUrls: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: true,
-        defaultValue: [],
-        validate: {
-          isValidUrls(value: string[]) {
-            if (value) {
-              value.forEach((url) => {
-                if (!url.match(/^https?:\/\/.+/i)) {
-                  throw new Error("Invalid image URL");
-                }
-              });
-            }
-          },
-        },
-      },
+      // role: {
+      //   type: DataTypes.STRING(100),
+      //   allowNull: true,
+      // },
+      // teamSize: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: true,
+      //   validate: {
+      //     min: 1,
+      //   },
+      // },
+      // imageUrls: {
+      //   type: DataTypes.ARRAY(DataTypes.STRING),
+      //   allowNull: true,
+      //   defaultValue: [],
+      //   validate: {
+      //     isValidUrls(value: string[]) {
+      //       if (value) {
+      //         value.forEach((url) => {
+      //           if (!url.match(/^https?:\/\/.+/i)) {
+      //             throw new Error("Invalid image URL");
+      //           }
+      //         });
+      //       }
+      //     },
+      //   },
+      // },
     },
     {
       tableName: "projects",
@@ -174,13 +167,13 @@ export function ProjectFactory(sequelize: Sequelize): typeof Project {
           fields: ["startDate"],
         },
       ],
-      hooks: {
-        beforeSave: async (project: Project) => {
-          if (project.isOngoing) {
-            project.endDate = null;
-          }
-        },
-      },
+      // hooks: {
+      //   beforeSave: async (project: Project) => {
+      //     if (project.isOngoing) {
+      //       project.endDate = null;
+      //     }
+      //   },
+      // },
     }
   );
 
@@ -267,15 +260,5 @@ export class ProjectService {
     return await project.update({
       technologies: project.technologies.filter((tech) => tech !== technology),
     });
-  }
-
-  static async addHighlight(id: number, highlight: string) {
-    const project = await Project.findByPk(id);
-    if (!project) {
-      throw new Error("Project not found");
-    }
-
-    const highlights = [...(project.highlights || []), highlight];
-    return await project.update({ highlights });
   }
 }
