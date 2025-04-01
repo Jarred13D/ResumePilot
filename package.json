@@ -10,9 +10,12 @@
     "axios": "^1.8.4",
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^3.0.1",
+    "pg": "^8.14.1",
+    "pg-hstore": "^2.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1",
+    "typescript": "^5.8.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
