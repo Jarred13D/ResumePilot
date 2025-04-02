@@ -157,13 +157,13 @@ export function setupSkillAssociations(models: { Resume: any; Skill: any }) {
   Resume.hasMany(Skill, {
     sourceKey: "id",
     foreignKey: "resumeId",
-    as: "skills",
+    as: "resumeSkills", // Updated alias to ensure uniqueness
   });
 
   Skill.belongsTo(Resume, {
     targetKey: "id",
     foreignKey: "resumeId",
-    as: "resume",
+    as: "associatedResume", // Updated alias to ensure uniqueness
   });
 }
 
@@ -184,6 +184,10 @@ export class SkillService {
 
     return await Skill.create({
       resumeId,
+      name: skillData.name || "Unnamed Skill",
+      level: skillData.level ?? SkillLevel.BEGINNER,
+      category: skillData.category ?? SkillCategory.OTHER,
+      isHighlighted: skillData.isHighlighted ?? false,
       ...skillData,
     });
   }

@@ -3,7 +3,7 @@ import { generateResume, generateCoverLetter } from '../utils/openai';
 
 const router = express.Router();
 
-// POST /api/ai/enhance
+// POST /api/ai/resume
 router.post('/resume', async (req: Request, res: Response) => {
   const { jobDescription } = req.body;
 

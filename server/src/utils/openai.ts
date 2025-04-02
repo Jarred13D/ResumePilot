@@ -38,4 +38,4 @@ export async function generateResume(jobDescription: string): Promise<string> {
     });
   
     return completion.choices[0].message.content?.trim() ?? '';
-  }
+  };
