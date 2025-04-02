@@ -2,7 +2,7 @@ import path from "path";
 import { Request, Response, NextFunction } from "express";
 import fs from "fs";
 
-const downloadResume = (req: Request, res: Response, next: NextFunction) => {
+const downloadResume = (req: Request, res: Response ) => {
     const { filename } = req.params;
     const filePath = path.join(__dirname, `../../uploads/${filename}`);
 
