@@ -9,6 +9,7 @@ import { ContactFactory } from './contact.js';
 import { ExperienceFactory, setupExperienceAssociations } from './experience.js';
 import { EducationFactory, setupEducationAssociations } from './education.js';
 import { SkillFactory, setupSkillAssociations } from './skills.js';
+// import { UserAttributes, ResumeAttributes, CertificationAttributes, ContactAttributes, ExperienceAttributes, EducationAttributes } from './types';
 // import { ProjectFactory, setupProjectAssociations } from './projects.js';
 
 // init models
@@ -113,6 +114,7 @@ export {
   // Project
 };
   
+
 // export types if needed
 // export type {
 //   UserAttributes,

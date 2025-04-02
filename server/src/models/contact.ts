@@ -3,6 +3,8 @@ import { DataTypes, Sequelize, Model, Optional } from 'sequelize';
 interface ContactAttributes {
   id: number;
   resumeId: number;
+  firstName?: string;
+  lastName?: string;
   email: string;
   phone?: string;
   address?: string;
@@ -23,6 +25,8 @@ export class Contact extends Model<ContactAttributes, ContactCreationAttributes>
   implements ContactAttributes {
   public id!: number;
   public resumeId!: number;
+  public firstName?: string;
+  public lastName?: string;
   public email!: string;
   public phone?: string;
   public address?: string;
@@ -54,6 +58,14 @@ export function ContactFactory(sequelize: Sequelize): typeof Contact {
           key: 'id'
         },
         unique: true, // Ensures one-to-one relationship with Resume
+      },
+      firstName: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+      },
+      lastName: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
       },
       email: {
         type: DataTypes.STRING(255),

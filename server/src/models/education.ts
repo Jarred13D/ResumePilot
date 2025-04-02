@@ -6,8 +6,8 @@ interface EducationAttributes {
   institution: string;
   degree: string;
   fieldOfStudy: string;
-  startDate: Date;
-  endDate?: Date;
+  // startDate: Date;
+  graduationDate?: Date;
   gpa?: number;
   description?: string;
   createdAt?: Date;
@@ -23,8 +23,8 @@ export class Education extends Model<EducationAttributes, EducationCreationAttri
   public institution!: string;
   public degree!: string;
   public fieldOfStudy!: string;
-  public startDate!: Date;
-  public endDate?: Date;
+  // public startDate!: Date;
+  public graduationDate?: Date;
   public gpa?: number;
   public description?: string;
 
@@ -61,11 +61,11 @@ export function EducationFactory(
         type: DataTypes.STRING(200),
         allowNull: false,
       },
-      startDate: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      endDate: {
+      // startDate: {
+      //   type: DataTypes.DATE,
+      //   allowNull: false,
+      // },
+      graduationDate: {
         type: DataTypes.DATE,
         allowNull: true,
       },

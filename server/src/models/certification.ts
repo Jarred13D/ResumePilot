@@ -6,7 +6,6 @@ interface CertificationAttributes {
   name: string;
   issuingOrganization: string;
   issueDate: Date;
-  expiryDate?: Date;
   credentialId?: string;
   credentialUrl?: string;
   description?: string;
@@ -25,7 +24,6 @@ export class Certification
   public name!: string;
   public issuingOrganization!: string;
   public issueDate!: Date;
-  public expiryDate?: Date;
   public credentialId?: string;
   public credentialUrl?: string;
   public description?: string;
@@ -64,11 +62,7 @@ export function CertificationFactory(
         type: DataTypes.DATE,
         allowNull: false,
       },
-      expiryDate: {
-        type: DataTypes.DATE,
-        allowNull: true,
-      },
-      credentialId: {
+        credentialId: {
         type: DataTypes.STRING(200),
         allowNull: true,
       },
