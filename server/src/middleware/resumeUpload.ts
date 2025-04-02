@@ -11,16 +11,17 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-    const allowedTypes = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+  const allowedTypes = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
 
-    if (!allowedTypes.includes(file.mimetype)) {
-        const error = new Error("Incorrect file type");
-        return cb(error, false);
-    } else {
-        return cb(null, true);
-    }
+  if (!allowedTypes.includes(file.mimetype)) {
+    const error = new Error("Incorrect file type");
+    cb(error, false);
+  } else {
+    cb(null, true);
+  }
 };
 
 const upload = multer({ storage, fileFilter });
+
 
 export default upload;
