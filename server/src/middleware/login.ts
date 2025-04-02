@@ -5,7 +5,7 @@ const API_URL = 'http://localhost:3000/api/v1';
 
 export const login = async (email: string, password: string) => {
   try {
-    const response = await apiClient.post(`auth/login`, {email, password});
+    const response = await apiClient.post(`${API_URL}/auth/login`, {email, password});
     const { token } = response.data;
     saveToken(token);
     return token;

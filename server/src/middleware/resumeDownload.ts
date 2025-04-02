@@ -1,5 +1,5 @@
 import path from "path";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import fs from "fs";
 
 const downloadResume = (req: Request, res: Response ) => {
@@ -14,10 +14,11 @@ const downloadResume = (req: Request, res: Response ) => {
         return res.status(404).json({ message: "File not found" });
     }
 
-    res.download(filePath, (err) => {
+    return res.download(filePath, (err) => {
         if (err) {
             return res.status(500).json({ message: "Error downloading file" });
         }
+        return;
     });
 };
 

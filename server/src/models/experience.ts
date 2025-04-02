@@ -7,7 +7,7 @@ interface ExperienceAttributes {
   position: string;
   location?: string;
   startDate: Date;
-  endDate?: Date;
+  endDate?: Date | null;
   isCurrent: boolean;
   description: string;
   responsibilities?: string[];
@@ -87,7 +87,7 @@ export function ExperienceFactory(sequelize: Sequelize): typeof Experience {
         validate: {
           isDate: true,
           validateEndDate(value: Date) {
-            if (value && value < this.startDate) {
+            if (value && value < (this.startDate as Date)) {
               throw new Error("End date must be after start date");
             }
             if (value && value > new Date()) {
@@ -135,7 +135,7 @@ export function ExperienceFactory(sequelize: Sequelize): typeof Experience {
       hooks: {
         beforeSave: async (experience: Experience) => {
           if (experience.isCurrent) {
-            experience.endDate = null;
+            experience.endDate == null;
           }
         },
       },
@@ -171,8 +171,13 @@ export class ExperienceService {
     experienceData: Partial<ExperienceAttributes>
   ) {
     return await Experience.create({
-      resumeId,
       ...experienceData,
+      resumeId,
+      company: experienceData.company || "",
+      position: experienceData.position || "",
+      description: experienceData.description || "",
+      startDate: experienceData.startDate || new Date(),
+      isCurrent: experienceData.isCurrent || false,
     });
   }
 
