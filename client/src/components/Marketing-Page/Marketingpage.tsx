@@ -1,7 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import AppTheme from '../../shared-theme/AppTheme';
-import AppAppBar from '../../components/Marketing-Page/components/AppAppbar';
+import AppAppBar from './components/AppAppbar';
 import Hero from './components/Hero';
 import LogoCollection from './components/LogoCollection';
 import Highlights from './components/Highlights';
@@ -21,10 +21,7 @@ export default function MarketingPage(props: { disableCustomTheme?: boolean }) {
         <LogoCollection />
         <Features />
         <Divider />
-        <Divider />
-        <Highlights />
-        <Divider />
-        <Pricing />
+        {/* <Pricing /> */}
         <Divider />
         <FAQ />
         <Divider />
