@@ -14,7 +14,7 @@ const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.
     const allowedTypes = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
 
     if (!allowedTypes.includes(file.mimetype)) {
-        const error = new Error("Incorrect file type");
+        const error = new Error("Incorrect file type") as any;
         return cb(error, false);
     } else {
         return cb(null, true);
