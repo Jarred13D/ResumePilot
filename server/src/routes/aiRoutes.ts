@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { generateResume, generateCoverLetter } from '../utils/openai';
+import { generateResume, generateCoverLetter } from '../utils/openai.js';
 
 const router = express.Router();
 

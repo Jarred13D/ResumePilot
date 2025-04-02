@@ -12,7 +12,9 @@ export const login = async (email: string, password: string) => {
   } catch (error) {
     throw new Error("Login failed");
   }
+  
 };
+
 
 export const logout = () => {
   clearToken();
