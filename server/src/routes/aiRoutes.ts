@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express';
-import { generateResume, generateCoverLetter } from '../utils/openai';
+import { generateResume, generateCoverLetter } from '../utils/openai.js';
 
 const router = express.Router();
 
-// POST /api/ai/enhance
+// POST /api/ai/resume
 router.post('/resume', async (req: Request, res: Response) => {
   const { jobDescription } = req.body;
 

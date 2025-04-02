@@ -57,7 +57,9 @@ export function UserFactory(sequelize: Sequelize): typeof User {
       hooks: {
         // Before creating a new user, hash and set the password
         beforeCreate: async (user: User) => {
+          console.log('Running beforeCreate hook for:', user.email);
           await user.setPassword(user.password);
+          console.log('New hashed password:', user.password);
         },
         // Before updating a user, hash and set the new password if it has changed
         beforeUpdate: async (user: User) => {
