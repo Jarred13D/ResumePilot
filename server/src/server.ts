@@ -6,15 +6,23 @@ dotenv.config();
 import express from 'express';
 import sequelize from './config/connection.js';
 import routes from './routes/index.js';
+import authRoutes from './routes/auth-routes.js';
+import aiRoutes from "./routes/aiRoutes.js";
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+
+// middleware to parse json
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 // Serves static files in the entire client's dist folder
 app.use(express.static('../client/dist'));
+app.use('/api/v1/auth', authRoutes); // Use the authentication routes
+app.use(routes); // Use the main routes
+app.use("/api/ai", aiRoutes); // Use the AI routes
 
-app.use(express.json());
-app.use(routes);
+const PORT = process.env.PORT || 3001;
 
 sequelize.sync({force: forceDatabaseRefresh}).then(() => {
   app.listen(PORT, () => {
