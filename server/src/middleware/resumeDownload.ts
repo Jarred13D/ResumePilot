@@ -1,5 +1,5 @@
 import path from "path";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import fs from "fs";
 
 const downloadResume = (req: Request, res: Response ) => {
