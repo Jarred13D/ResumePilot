@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,6 +14,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ColorModeIconDropdown from '../../../shared-theme/ColorModelDropdown';
 import Sitemark from '../SitemarkIcon';
+import type {} from '@mui/material/themeCssVarsAugmentation';
+import { Typography } from '@mui/material';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -51,27 +54,26 @@ export default function AppAppBar() {
       <Container maxWidth="lg">
         <StyledToolbar variant="dense" disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-            <Sitemark />
+            {/* <Sitemark /> */}
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button variant="text" color="info" size="small">
-                Features
+          <Typography variant="h6" color="info" className="font-mono text-xl font-bold text-white">
+            ResumePilot
+          </Typography>
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Button component={Link} to="/dashboard" variant="text" color="info" size="small" href="#dashboard">
+                Dashboard
               </Button>
-              <Button variant="text" color="info" size="small">
+              {/* <Button variant="text" color="info" size="small">
                 Testimonials
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Highlights
-              </Button>
-              <Button variant="text" color="info" size="small">
+              </Button> */}
+              {/* <Button variant="text" color="info" size="small">
                 Pricing
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
+              </Button> */}
+              <Button component={Link} to="/faq" variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
                 FAQ
               </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                Blog
-              </Button>
             </Box>
+          </Box>
           </Box>
           <Box
             sx={{
@@ -80,10 +82,10 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            <Button color="primary" variant="text" size="small">
+            <Button component={Link} to="/sign-in" color="primary" variant="text" size="small">
               Sign in
             </Button>
-            <Button color="primary" variant="contained" size="small">
+            <Button component={Link} to="/sign-up" color="primary" variant="contained" size="small">
               Sign up
             </Button>
             <ColorModeIconDropdown />
@@ -116,11 +118,9 @@ export default function AppAppBar() {
                 </Box>
 
                 <MenuItem>Features</MenuItem>
-                <MenuItem>Testimonials</MenuItem>
-                <MenuItem>Highlights</MenuItem>
-                <MenuItem>Pricing</MenuItem>
+                {/* <MenuItem>Testimonials</MenuItem> */}
+                {/* <MenuItem>Pricing</MenuItem> */}
                 <MenuItem>FAQ</MenuItem>
-                <MenuItem>Blog</MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>
