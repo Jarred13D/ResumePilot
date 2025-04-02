@@ -7,8 +7,8 @@ const openai = new OpenAI({
 });
 
 // Generate a resume based on a job description
-export async function generateResume(jobDescription: string): Promise<string> {
-    const prompt = `You are a professional resume writer. Rewrite the following resume to better match the job description.\n\nJob description: "${jobDescription}"`;
+export async function generateResume(resumeString: string, jobDescriptionString: string): Promise<string> {
+  const prompt = `You are a professional resume writer. Rewrite the following resume: "${resumeString}" to better match the job description.\n\nJob description: "${jobDescriptionString}"`;
   
     try {
     const completion = await openai.chat.completions.create({

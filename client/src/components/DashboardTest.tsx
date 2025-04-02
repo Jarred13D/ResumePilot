@@ -25,6 +25,35 @@ const ResumeDashboard: React.FC = () => {
   const [aiSuggestions, setAiSuggestions] = useState<string[]>([]);
   const [coverLetter, setCoverLetter] = useState('');
 
+  const generateResume = () => {
+    const resumeString = `
+      Resume for: ${name}
+
+      Professional Summary:
+      ${summary}
+
+      Job Title: ${jobTitle}
+      Company: ${company}
+      Responsibilities:
+      ${description}
+
+      Education:
+      ${education} - ${degree}
+
+      Skills:
+      ${skills}
+
+    `;
+
+    const jobDescriptionString = `
+    ${jobDescription}`;
+
+    console.log(resumeString); 
+    console.log(jobDescriptionString)
+  };
+
+
+
   return (
     <section id="dashboard">
     <Container maxWidth="md" sx={{ mt: 4, color: 'text.primary' }}>
@@ -81,7 +110,8 @@ const ResumeDashboard: React.FC = () => {
         fullWidth
       />
 
-      <Button variant="contained" color="success" sx={{ my: 2 }}>
+      <Button variant="contained" color="success" sx={{ my: 2 }}
+      onClick={generateResume} >
         Enhance My Resume
       </Button>
 
