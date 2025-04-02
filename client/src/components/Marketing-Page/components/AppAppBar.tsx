@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -59,7 +60,7 @@ export default function AppAppBar() {
             ResumePilot
           </Typography>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button variant="text" color="info" size="small">
+              <Button component={Link} to="/dashboard" variant="text" color="info" size="small" href="#dashboard">
                 Dashboard
               </Button>
               {/* <Button variant="text" color="info" size="small">
@@ -68,7 +69,7 @@ export default function AppAppBar() {
               {/* <Button variant="text" color="info" size="small">
                 Pricing
               </Button> */}
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
+              <Button component={Link} to="/faq" variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
                 FAQ
               </Button>
             </Box>
@@ -81,10 +82,10 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            <Button color="primary" variant="text" size="small">
+            <Button component={Link} to="/sign-in" color="primary" variant="text" size="small">
               Sign in
             </Button>
-            <Button color="primary" variant="contained" size="small">
+            <Button component={Link} to="/sign-up" color="primary" variant="contained" size="small">
               Sign up
             </Button>
             <ColorModeIconDropdown />
