@@ -105,6 +105,48 @@ const ResumeDashboard: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
+    
+  const [coverLetter, setCoverLetter] = useState('');
+
+  const generateResume = () => {
+    const resumeString = `
+      Resume for: ${name}
+
+      Professional Summary:
+      ${summary}
+
+      Job Title: ${jobTitle}
+      Company: ${company}
+      Responsibilities:
+      ${description}
+
+      Education:
+      ${education} - ${degree}
+
+      Skills:
+      ${skills}
+
+    `;
+
+    const jobDescriptionString = `
+    ${jobDescription}`;
+
+    console.log(resumeString); 
+    console.log(jobDescriptionString)
+
+    try {
+      const response = await fetch("http://localhost:5000/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resumeString, jobDescriptionString }),
+      });
+  
+      const data = await response.json();
+      setAiSuggestions([data.enhancedResume]); // Store the improved resume in the UI
+    } catch (error) {
+      console.error("Error fetching AI-generated resume:", error);
+    }
+  };
   };
 
   return (
@@ -217,6 +259,18 @@ const ResumeDashboard: React.FC = () => {
           </List>
         </Box>
       )} */}
+      
+      <Button variant="contained" color="success" sx={{ my: 2 }}
+      onClick={generateResume} >
+        Enhance My Resume
+      </Button>
+
+{aiSuggestions.length > 0 && (
+  <Box mt={2} p={2} border={1} borderColor="grey.400" borderRadius={2}>
+    <Typography variant="h6" fontWeight="bold">AI-Enhanced Resume:</Typography>
+    <Typography>{aiSuggestions[0]}</Typography>
+  </Box>
+)}
 
       <Divider sx={{ my: 4 }} />
 
