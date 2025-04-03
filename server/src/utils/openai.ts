@@ -1,4 +1,4 @@
-import { resumeString,  jobDescriptionString } from "../../../client/src/components/DashboardTest";
+// Removed unused imports
 import { OpenAI } from "openai";
 import dotenv from "dotenv";
 dotenv.config();

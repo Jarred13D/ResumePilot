@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 const ResumeBuilder: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
