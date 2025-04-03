@@ -8,7 +8,7 @@ router.post('/resume', async (req: Request, res: Response) => {
   const { jobDescription } = req.body;
 
   try {
-    const resume = await generateResume(jobDescription);
+    const resume = await generateResume("Your existing resume content here", jobDescription);
     res.json({ resume });
   } catch (err) {
     res.status(500).json({ error: 'Failed to generate resume' });
