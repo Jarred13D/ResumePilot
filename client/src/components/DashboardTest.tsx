@@ -50,6 +50,21 @@ const ResumeDashboard: React.FC = () => {
 
     console.log(resumeString); 
     console.log(jobDescriptionString)
+
+    try {
+      const response = await fetch("http://localhost:5000/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resumeString, jobDescriptionString }),
+      });
+  
+      const data = await response.json();
+      setAiSuggestions([data.enhancedResume]); // Store the improved resume in the UI
+    } catch (error) {
+      console.error("Error fetching AI-generated resume:", error);
+    }
+  };
+
   };
 
 
@@ -115,18 +130,12 @@ const ResumeDashboard: React.FC = () => {
         Enhance My Resume
       </Button>
 
-      {aiSuggestions.length > 0 && (
-        <Box>
-          <Typography variant="h6" color="primary">AI Suggestions</Typography>
-          <List>
-            {aiSuggestions.map((suggestion, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={`• ${suggestion}`} />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      )}
+{aiSuggestions.length > 0 && (
+  <Box mt={2} p={2} border={1} borderColor="grey.400" borderRadius={2}>
+    <Typography variant="h6" fontWeight="bold">AI-Enhanced Resume:</Typography>
+    <Typography>{aiSuggestions[0]}</Typography>
+  </Box>
+)}
 
       <Divider sx={{ my: 4 }} />
 
