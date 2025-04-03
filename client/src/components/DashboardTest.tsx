@@ -25,7 +25,8 @@ const ResumeDashboard: React.FC = () => {
   const [skills, setSkills] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [aiSuggestions, setAiSuggestions] = useState<string[]>([]);
-  const [coverLetter, setCoverLetter] = useState('');
+  const [coverLetter] = useState('');
+  // const [coverLetter, setCoverLetter] = useState('');
 
   // added state for loading and error handling
   const [isLoading, setIsLoading] = useState(false);
