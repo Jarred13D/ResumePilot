@@ -12,7 +12,7 @@ export default function FAQ() {
   const [expanded, setExpanded] = React.useState<string[]>([]);
 
   const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(
         isExpanded
           ? [...expanded, panel]
@@ -66,7 +66,7 @@ export default function FAQ() {
             >
               You can reach our customer support team by emailing&nbsp;
               <Link href="mailto:support@email.com">support@email.com</Link>
-              &nbsp;or calling our toll-free number. We&apos;re here to assist you
+              &nbsp;. We&apos;re here to assist you
               promptly.
             </Typography>
           </AccordionDetails>
@@ -81,7 +81,7 @@ export default function FAQ() {
             id="panel2d-header"
           >
             <Typography component="span" variant="subtitle2">
-              Can I return the product if it doesn&apos;t meet my expectations?
+            Can I start over once the resume is built or edit it later?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -90,9 +90,9 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Absolutely! We offer a hassle-free return policy. If you&apos;re not
-              completely satisfied, you can return the product within [number of
-              days] days for a full refund or exchange.
+              Absolutely! All you have to do is refresh the page, and you can
+              start over. You can also edit your resume at any time by logging into your account 
+              and accessing your saved resumes.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -106,7 +106,7 @@ export default function FAQ() {
             id="panel3d-header"
           >
             <Typography component="span" variant="subtitle2">
-              What makes your product stand out from others in the market?
+            What makes Resume Pilot stand out from others in the market?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -115,8 +115,9 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Our product distinguishes itself through its adaptability, durability,
-              and innovative features. We prioritize user satisfaction and
+               Our product distinguishes itself through its adaptability, durability,
+              and innovative features. We use the latest techniology with AI integrated features to asure you
+              that your resume is like non other! We prioritize user satisfaction and
               continually strive to exceed expectations in every aspect.
             </Typography>
           </AccordionDetails>
@@ -131,7 +132,7 @@ export default function FAQ() {
             id="panel4d-header"
           >
             <Typography component="span" variant="subtitle2">
-              Is there a warranty on the product, and what does it cover?
+            Will others be able to see my resume once I create it?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -140,10 +141,10 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Yes, our product comes with a [length of warranty] warranty. It covers
-              defects in materials and workmanship. If you encounter any issues
-              covered by the warranty, please contact our customer support for
-              assistance.
+             No, your resume is private and only accessible to you. We take your
+              privacy seriously and ensure that your information is secure. You can
+              choose to share your resume with potential employers by downloading it or
+              sharing a link, but it will not be visible to others.
             </Typography>
           </AccordionDetails>
         </Accordion>
