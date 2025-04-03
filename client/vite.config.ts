@@ -17,5 +17,15 @@ export default defineConfig({
         secure: false
       },
     },
+  },// Specify the output directory for build
+  base: '/', // Specify the base path for the application, useful for deployment
+  build: {
+    outDir: 'dist', // Output directory for the build
+    rollupOptions: {
+      // Customize Rollup options here
+      input: {
+        main: './index.html', // Entry point for the application
+      },
+    },
   },
 });
