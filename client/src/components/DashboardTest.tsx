@@ -9,7 +9,9 @@ import {
   ListItem,
   ListItemText,
   Stack,
-  Divider
+  Divider,
+  CircularProgress, // added import
+  Alert, // added import
 } from '@mui/material';
 
 const ResumeDashboard: React.FC = () => {
@@ -25,34 +27,84 @@ const ResumeDashboard: React.FC = () => {
   const [aiSuggestions, setAiSuggestions] = useState<string[]>([]);
   const [coverLetter, setCoverLetter] = useState('');
 
-  const generateResume = () => {
-    const resumeString = `
-      Resume for: ${name}
+  // added state for loading and error handling
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-      Professional Summary:
-      ${summary}
+  const generateResume = async () => {
+    // reset states
+    setError(null);
+    setIsLoading(true);
+    setAiSuggestions([]);
 
-      Job Title: ${jobTitle}
-      Company: ${company}
-      Responsibilities:
-      ${description}
+  //   const resumeString = `
+  //     Resume for: ${name}
 
-      Education:
-      ${education} - ${degree}
+  //     Professional Summary:
+  //     ${summary}
 
-      Skills:
-      ${skills}
+  //     Job Title: ${jobTitle}
+  //     Company: ${company}
+  //     Responsibilities:
+  //     ${description}
 
-    `;
+  //     Education:
+  //     ${education} - ${degree}
 
-    const jobDescriptionString = `
-    ${jobDescription}`;
+  //     Skills:
+  //     ${skills}
+  //   `;
 
-    console.log(resumeString); 
-    console.log(jobDescriptionString)
+  //   const jobDescriptionString = `
+  //   ${jobDescription}`;
+
+  //   console.log(resumeString);
+  //   console.log(jobDescriptionString)
+  // };
+  
+    // Create resume data object
+    const resumeData = {
+      name,
+      summary,
+      jobTitle,
+      company,
+      description,
+      education,
+      degree,
+      skills
+    };
+
+    try {
+      const response = await fetch('/api/generate-resume', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          resumeData,
+          jobDescription
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate resume suggestions');
+      }
+
+      const data = await response.json();
+      
+      if (data.success && data.suggestions) {
+        setAiSuggestions(Array.isArray(data.suggestions) 
+          ? data.suggestions 
+          : [data.suggestions]);
+      } else {
+        throw new Error('Invalid response format');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-
 
   return (
     <section id="dashboard">
@@ -110,12 +162,49 @@ const ResumeDashboard: React.FC = () => {
         fullWidth
       />
 
-      <Button variant="contained" color="success" sx={{ my: 2 }}
-      onClick={generateResume} >
-        Enhance My Resume
-      </Button>
+        {/* Error display */}
+        {error && (
+          <Alert severity="error" sx={{ my: 2 }}>
+            {error}
+          </Alert>
+        )}
 
-      {aiSuggestions.length > 0 && (
+        <Button
+          variant="contained"
+          color="success"
+          sx={{ my: 2 }}
+          onClick={generateResume}
+          disabled={isLoading || !jobDescription.trim}
+        >
+          {isLoading ? (
+            <>
+              <CircularProgress size={24} sx={{ mr: 1 }} color="inherit" />
+              Generating Suggestions...
+            </>
+          ) : (
+            'Enhance My Resume'
+          )}
+        </Button> 
+
+        {/* AI Suggestions section with loading state */}
+        {isLoading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+            <CircularProgress />
+          </Box>
+        ) : aiSuggestions.length > 0 && (
+          <Box>
+            <Typography variant="h6" color="primary">AI Suggestions</Typography>
+            <List>
+              {aiSuggestions.map((suggestion, index) => (
+                <ListItem key={index}>
+                  <ListItemText primary={`• ${suggestion}`} />
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        )}
+
+      {/* {aiSuggestions.length > 0 && (
         <Box>
           <Typography variant="h6" color="primary">AI Suggestions</Typography>
           <List>
@@ -126,7 +215,7 @@ const ResumeDashboard: React.FC = () => {
             ))}
           </List>
         </Box>
-      )}
+      )} */}
 
       <Divider sx={{ my: 4 }} />
 

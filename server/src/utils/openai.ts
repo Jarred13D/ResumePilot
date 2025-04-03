@@ -1,4 +1,5 @@
-import { resumeString,  jobDescriptionString } from "../../../client/src/components/DashboardTest";
+import type { ResumeData, JobDescription } from "../types/express/dashboard.types";
+
 import { OpenAI } from "openai";
 import dotenv from "dotenv";
 dotenv.config();
@@ -9,10 +10,10 @@ const openai = new OpenAI({
 
 // Generate a resume based on a job description
 export async function generateResume(
-  resumeString: string,
-  jobDescriptionString: string
+  resume: ResumeData,  // revised to accept the imported types
+  jobDescription: JobDescription // ditto
 ): Promise<string> {
-  const prompt = `You are a professional resume writer. Rewrite the following resume: "${resumeString}" to better match the job description.\n\nJob description: "${jobDescriptionString}"`;
+  const prompt = `You are a professional resume writer. Rewrite the following resume: "${resume}" to better match the job description.\n\nJob description: "${jobDescription}"`;
 
   try {
     const completion = await openai.chat.completions.create({
