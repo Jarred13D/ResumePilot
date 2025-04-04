@@ -115,7 +115,7 @@ Resume analytics dashboard
 ## Support 📧
 For support, please contact
 Clinton Reynolds - eastwood188209@gmail.com
-Jarred Hampton - mellinwood1023
+Jarred Hampton - jarred.c.hampton@gmail.com
 Dan McClintic -
 Matt Mullen - mhmullen@icloud.com
 Maggie Ellinwood - mellinwood1023@gmail.com
