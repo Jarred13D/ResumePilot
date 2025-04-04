@@ -1,7 +1,5 @@
 import sequelize from '../config/connection.js';
-import { Sequelize } from 'sequelize';
-
-// import { Sequelize } from 'sequelize';
+//import { Sequelize } from 'sequelize';
 
 // import all factory functions
 import { UserFactory } from './user.js';
@@ -21,7 +19,7 @@ const Contact = ContactFactory(sequelize);
 const Experience = ExperienceFactory(sequelize);
 const Education = EducationFactory(sequelize);
 const Skill = SkillFactory(sequelize);
-// const Project = ProjectFactory(sequelizeInstance);
+// const Project = ProjectFactory(sequelize);
 
 // setup all assocaitions
 User.hasMany(Resume, {

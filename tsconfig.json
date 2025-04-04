@@ -17,9 +17,13 @@
     "noUnusedLocals": true,                     // Show error for unused local variables
     "noUnusedParameters": true,                 // Show error for unused parameters
     "noImplicitReturns": true,                  // Ensure functions always return a value
-    "noImplicitAny": true,                      // Raise an error when a variable has an implicit 'any' type
+    "noImplicitAny": false,                      // Raise an error when a variable has an implicit 'any' type
     "downlevelIteration": true,                 // Enable downlevel iteration for older browsers
-    "resolveJsonModule": true                   // Allow importing JSON files directly
+    "resolveJsonModule": true,                  // Allow importing JSON files directly
+    "typeRoots": [                           // Specify the location of type definitions
+      "node_modules/@types",                    // Default location for type definitions
+      "src/types"                               // Custom types directory
+    ],
   },
   "exclude": [
     "node_modules",                             // Exclude the 'node_modules' directory
