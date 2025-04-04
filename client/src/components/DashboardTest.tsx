@@ -25,7 +25,7 @@ const ResumeDashboard: React.FC = () => {
   const [aiSuggestions, setAiSuggestions] = useState<string[]>([]);
   const [coverLetter, setCoverLetter] = useState('');
 
-  const generateResume = () => {
+  const generateResume = async () => {
     const resumeString = `
       Resume for: ${name}
 
@@ -64,10 +64,6 @@ const ResumeDashboard: React.FC = () => {
       console.error("Error fetching AI-generated resume:", error);
     }
   };
-
-  };
-
-
 
   return (
     <section id="dashboard">
@@ -152,7 +148,8 @@ const ResumeDashboard: React.FC = () => {
         rows={8}
         value={coverLetter}
         placeholder="Generated cover letter will appear here..."
-        fullWidth
+          fullWidth
+          onChange={(e)=> setCoverLetter(e.target.value)}
         InputProps={{ readOnly: true }}
       />
 
