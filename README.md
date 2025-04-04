@@ -118,7 +118,7 @@ Clinton Reynolds - eastwood188209@gmail.com
 Jarred Hampton - mellinwood1023
 Dan McClintic -
 Matt Mullen - mhmullen@icloud.com
-Maggie Ellinwood -
+Maggie Ellinwood - mellinwood1023@gmail.com
 Jay Contreras -
 
 ## License 📄
