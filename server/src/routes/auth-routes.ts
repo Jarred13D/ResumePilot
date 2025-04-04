@@ -14,18 +14,15 @@ router.post('/register', async (req: Request, res: Response) => {
   }
 
   try {
-    console.log('Register request body:', req.body);
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ message: 'Email already registered' });
     }
 
     // Clean build (do NOT manually hash here)
-    const newUser = User.build({ username, email, password, createdAt: new Date(), updatedAt: new Date() });
+    const newUser = await User.create({ username, email, password, createdAt: new Date(), updatedAt: new Date() });
 
     console.log('Built user before save:', newUser);
-
-    await newUser.save(); // Hook will fire here
 
     return res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
