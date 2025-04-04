@@ -37,8 +37,8 @@ const ResumeDashboard: React.FC = () => {
   const [degree, setDegree] = useState('');
   const [skills, setSkills] = useState('');
   const [jobDescription, setJobDescription] = useState('');
-  const [aiSuggestions, setAiSuggestions] = useState<string[]>([]);
-  const [coverLetter, setCoverLetter] = useState('');
+  const [aiSuggestions, _setAiSuggestions] = useState<string[]>([]);
+  const [coverLetter, _setCoverLetter] = useState('');
 
   const generateResume = () => {
     const resumeString = `
