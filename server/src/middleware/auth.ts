@@ -8,6 +8,7 @@ interface JwtPayload {
 
 // Middleware function to authenticate JWT token
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+  console.log(`Authenticating route: ${req.path}`);
   // Get the authorization header from the request
   const authHeader = req.headers.authorization;
 

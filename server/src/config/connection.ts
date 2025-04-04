@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { Sequelize } from 'sequelize';
+import { UserFactory } from '../models/user.js'
 
 const sequelize = process.env.DB_URL
   ? new Sequelize(process.env.DB_URL)
@@ -18,5 +19,11 @@ const sequelize = process.env.DB_URL
         },
       }
     );
+
+    sequelize.authenticate()
+  .then(() => console.log('Database connected successfully'))
+  .catch((err) => console.error('Database connection error:', err));
+// initialize models
+UserFactory(sequelize);
 
 export default sequelize;

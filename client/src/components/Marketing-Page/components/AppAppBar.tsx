@@ -16,6 +16,7 @@ import ColorModeIconDropdown from '../../../shared-theme/ColorModelDropdown';
 //import Sitemark from '../SitemarkIcon';
 import type {} from '@mui/material/themeCssVarsAugmentation';
 import { Typography } from '@mui/material';
+import auth from '../../../utils/auth';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -82,12 +83,20 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
+            {auth.loggedIn() ? (
+            <Button onClick={() => auth.logout()} color="error" variant="outlined" size="small">
+              Logout
+            </Button>
+            ) : (
+            <>
             <Button component={Link} to="/sign-in" color="primary" variant="text" size="small">
               Sign in
             </Button>
             <Button component={Link} to="/sign-up" color="primary" variant="contained" size="small">
               Sign up
             </Button>
+            </>
+            )}
             <ColorModeIconDropdown />
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>

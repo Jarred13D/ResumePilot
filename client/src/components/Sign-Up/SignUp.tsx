@@ -18,6 +18,8 @@ import ColorModeSelect from '../../shared-theme/ColorModeSelect';
 import { GoogleIcon, SitemarkIcon } from '../Sign-In/components/CustomIcons';
 // import auth from '../../utils/auth';
 // import { register } from '../../api/authAPI';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertColor } from '@mui/material/Alert';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -68,6 +70,19 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+
+  // alert setup for snackbar
+  const Alert = React.forwardRef<HTMLDivElement, any>(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  // snackbar setup
+  const [snackOpen, setSnackOpen] = React.useState(false);
+  const [snackMessage, setSnackMessage] = React.useState('');
+  const [snackSeverity, setSnackSeverity] = React.useState<AlertColor>('success');
+
+  const handleSnackbarClose = () => {
+  setSnackOpen(false);
+  };
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;
@@ -125,13 +140,22 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
       });
   
       if (response.ok) {
-        alert("Signup successful! You can now log in.");
+        setSnackMessage("Signup successful! Redirecting to login...");
+        setSnackSeverity("success");
+        setSnackOpen(true);
+        setTimeout(() => {
+          window.location.href = "/sign-in";
+        }, 2000);
       } else {
-        alert("Signup failed. Please try again.");
+        setSnackMessage("Signup failed. Please try again.");
+        setSnackSeverity("error");
+        setSnackOpen(true);
       }
     } catch (error) {
       console.error("Signup error:", error);
-      alert("Signup failed. Please try again.");
+      setSnackMessage("Signup failed. Please try again.");
+      setSnackSeverity("error");
+      setSnackOpen(true);
     }
   }; 
 
@@ -235,6 +259,16 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
               </Link>
             </Typography>
           </Box>
+          <Snackbar
+  open={snackOpen}
+  autoHideDuration={3000}
+  onClose={() => setSnackOpen(false)}
+  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+>
+  <MuiAlert elevation={6} variant="filled" severity={snackSeverity}>
+    {snackMessage}
+  </MuiAlert>
+</Snackbar>
         </Card>
       </SignUpContainer>
     </AppTheme>
