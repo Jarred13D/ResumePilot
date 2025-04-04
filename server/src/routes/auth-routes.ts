@@ -1,64 +1,61 @@
 import { Router, Request, Response } from 'express';
-import { User } from '../models/user.js';  // Import the User model
-import jwt from 'jsonwebtoken';  // Import the JSON Web Token library
-import bcrypt from 'bcrypt';  // Import the bcrypt library for password hashing
+import jwt from 'jsonwebtoken';
+import { User } from '../models/user.js';
 
-// Login function to authenticate a user
-export const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body;  // Extract email and password from request body
-  console.log('Login attempt:', email);
-
-  // Find the user in the database by email
-  const user = await User.findOne({
-    where: { email },  // Use email as the identifier
-  });
-
-  // If user is not found, send an authentication failed response
-  if (!user) {
-    console.log('User not found');
-
-    return res.status(401).json({ message: 'Authentication failed' });
-  }
-  console.log('Found user:', user.email);
-  // Compare the provided password with the stored hashed password
-  const passwordIsValid = await bcrypt.compare(password, user.password);
-  console.log("Is password valid?", passwordIsValid);
-  // If password is invalid, send an authentication failed response
-  if (!passwordIsValid) {
-    console.log('Invalid password');
-
-    return res.status(401).json({ message: 'Authentication failed' });
-  }
-
-  // Get the secret key from environment variables
-  const secretKey = process.env.JWT_SECRET_KEY || '';
-
-  // Generate a JWT token for the authenticated user
-  const token = jwt.sign({ email }, secretKey, { expiresIn: '1h' });
-  
-  return res.json({ token });  // Send the token as a JSON response
-};
-
-const register = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-
-  const existingUser = await User.findOne({ where: { username } });
-  if (existingUser) return res.status(400).json({ message: 'Username already exists' });
-
-  // const hashedPassword = await bcrypt.hash(password, 10);
-  const { email } = req.body; // Extract email from request body
-  // await User.create({ username, email, password });
-  const newUser = User.build({ username, email, password });
-  await newUser.save();
-
-  return res.status(201).json({ message: 'User registered successfully' });
-};
-
-// Create a new router instance
 const router = Router();
 
-// POST /login - Login a user
-router.post('/login', login);  // Define the login route
-router.post('/register', register);  // Define the register route
+router.post('/register', async (req: Request, res: Response) => {
+  const { username, email, password } = req.body;
 
-export default router;  // Export the router instance
+  console.log('Register request body:', req.body);
+
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  try {
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already registered' });
+    }
+
+    // Clean build (do NOT manually hash here)
+    const newUser = await User.create({ username, email, password, createdAt: new Date(), updatedAt: new Date() });
+
+    console.log('Built user before save:', newUser);
+
+    return res.status(201).json({ message: 'User registered successfully' });
+  } catch (err) {
+    console.error('Error registering user:', err);
+    return res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.post('/login', async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    const user = await User.findOne({ where: { email } });
+
+    if (!user || !(await user.isValidPassword(password))) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      process.env.JWT_SECRET_KEY!,
+      { expiresIn: '1h' }
+    );
+
+    return res.json({ token });
+  } catch (error) {
+    console.error('Login error:', error);
+    return res.status(500).json({ message: 'Something went wrong during login' });
+  }
+});
+
+export default router;

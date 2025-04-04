@@ -28,4 +28,30 @@ const login = async (userInfo: UserLogin) => {
   }
 }
 
+export const register = async (userInfo: {
+  username: string;
+  email: string;
+  password: string;
+}) => {
+  try {
+    const response = await fetch('/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userInfo),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Registration failed');
+    }
+
+    return await response.json();
+  } catch (err) {
+    console.error('Register error:', err);
+    throw err;
+  }
+};
+
 export { login };  // Export the login function to be used elsewhere in the application

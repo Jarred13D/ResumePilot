@@ -37,7 +37,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.post('/', async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
   try {
-    const newUser = await User.create({ username, email, password });
+    const newUser = await User.create({ username, email, password, createdAt: new Date(), updatedAt: new Date() });
     res.status(201).json(newUser);
   } catch (error: any) {
     res.status(400).json({ message: error.message });
@@ -52,7 +52,7 @@ router.put('/:id', async (req: Request, res: Response) => {
     const user = await User.findByPk(id);
     if (user) {
       user.username = username;
-      user.password = password;
+      user.setDataValue('password', password);
       await user.save();
       res.json(user);
     } else {
