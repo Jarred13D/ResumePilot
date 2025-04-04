@@ -68,7 +68,6 @@ export function UserFactory(sequelize: Sequelize): typeof User {
       tableName: 'users',
       hooks: {
         beforeCreate: async (user: User) => {
-          console.log('Before create hook:', user);
           if (user.password) {
             await user.setPassword(user.password);
           } else {
