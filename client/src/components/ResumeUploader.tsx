@@ -1,4 +1,3 @@
-import upload from './server/src/middleware/resumeUpload';
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -37,3 +36,7 @@ const ResumeUploader = () => {
 };
 
 export default ResumeUploader;
+
+function upload(file: File): string {
+    throw new Error('Function not implemented.');
+}

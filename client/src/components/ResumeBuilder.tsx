@@ -30,7 +30,8 @@ function ResumeBuilder() {
     ${skills}
   `, [name, summary, jobTitle, company, description, education, degree, skills]);
 
-  const jobDescription
+  const [jobDescription, setJobDescription] = useState('');
+ 
 
   return (
     <div>

@@ -8,7 +8,6 @@ import App from './App.tsx';
 
 import ErrorPage from './pages/ErrorPage.tsx';
 import MarketingPage from './components/Marketing-Page/Marketingpage.tsx';
-import Login from './pages/Login';
 import SignIn from './components/Sign-In/components/SignIn.tsx';
 import SignUp from './components/Sign-Up/SignUp.tsx';
 import DashboardTest from './components/DashboardTest.tsx';
@@ -23,7 +22,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {index: true, element: <MarketingPage />},
-      {path: '/login', element: <Login />},
       {path: '/sign-in', element: <SignIn />},
       {path: '/sign-up', element: <SignUp />},
       {path: '/dashboard', element: <DashboardTest />},
