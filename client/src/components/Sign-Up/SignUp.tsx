@@ -16,8 +16,8 @@ import { styled } from '@mui/material/styles';
 import AppTheme from '../../shared-theme/AppTheme';
 import ColorModeSelect from '../../shared-theme/ColorModeSelect';
 import { GoogleIcon, SitemarkIcon } from '../Sign-In/components/CustomIcons';
-import auth from '../../utils/auth';
-import { register } from '../../api/authAPI';
+// import auth from '../../utils/auth';
+// import { register } from '../../api/authAPI';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -224,14 +224,6 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
             >
               Sign up with Google
             </Button>
-            {/* <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert('Sign up with Facebook')}
-              startIcon={<FacebookIcon />}
-            >
-              Sign up with Facebook
-            </Button> */}
             <Typography sx={{ textAlign: 'center' }}>
               Already have an account?{' '}
               <Link

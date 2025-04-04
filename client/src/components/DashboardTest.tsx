@@ -53,7 +53,6 @@ const ResumeDashboard: React.FC = () => {
   };
 
 
-
   return (
     <section id="dashboard">
     <Container maxWidth="md" sx={{ mt: 4, color: 'text.primary' }}>
