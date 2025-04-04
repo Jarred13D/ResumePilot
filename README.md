@@ -2,10 +2,10 @@
 
 ResumePilot is an intelligent resume enhancement tool that leverages AI technology to help users create compelling, professional resumes. By combining React's powerful UI capabilities with AI-powered suggestions, ResumePilot helps job seekers optimize their resumes for better results.
 
-## Visuals
 
-https://files.slack.com/files-pri/T07TSJ8KUMR-F08MCCQP6BA/image.png
-https://files.slack.com/files-pri/T07TSJ8KUMR-F08LS8W5MPE/image.png
+## Visuals
+![Alt text](https://files.slack.com/files-pri/T07TSJ8KUMR-F08MCCQP6BA/image.png)
+![Alt text](https://files.slack.com/files-pri/T07TSJ8KUMR-F08LS8W5MPE/image.png)
 
 ## Features ✨
 
