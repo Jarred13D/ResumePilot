@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -36,9 +36,32 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(auth.loggedIn());
+  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
+  };
+
+  React.useEffect(() => {
+    const checkLogin = () => setIsLoggedIn(auth.loggedIn());
+
+    checkLogin();
+
+    // Update state when coming back to tab or storage changes
+    window.addEventListener('focus', checkLogin);
+    window.addEventListener('storage', checkLogin);
+
+    return () => {
+      window.removeEventListener('focus', checkLogin);
+      window.removeEventListener('storage', checkLogin);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    auth.logout();
+    setIsLoggedIn(false);
+    navigate('/sign-in'); // Optional: redirect after logout
   };
 
   return (
@@ -83,8 +106,8 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            {auth.loggedIn() ? (
-            <Button onClick={() => auth.logout()} color="error" variant="outlined" size="small">
+            {isLoggedIn ? (
+            <Button onClick={handleLogout} color="error" variant="outlined" size="small">
               Logout
             </Button>
             ) : (
