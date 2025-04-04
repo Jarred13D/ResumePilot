@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import auth from '../utils/auth';
 import {
   Box,
   Button,
@@ -52,6 +54,13 @@ const ResumeDashboard: React.FC = () => {
     console.log(jobDescriptionString)
   };
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+  if (!auth.loggedIn()) {
+    navigate('/sign-in');
+  }
+}, []);
 
   return (
     <section id="dashboard">

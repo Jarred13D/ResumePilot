@@ -6,10 +6,9 @@ import { authenticateToken } from '../middleware/auth.js';
 
 const router = Router();
 
-// Allow public access to /api/ai routes
-router.use('/api/ai', aiRoutes);
-
+// Allow public access to /auth /api/ai routes
 router.use('/auth', authRoutes);
+router.use('/api/ai', aiRoutes);
 
 // Protect everything else under /api
 router.use('/api/v1', authenticateToken, apiRoutes);

@@ -18,6 +18,8 @@ import AppTheme from '../../../shared-theme/AppTheme';
 import ColorModeSelect from '../../../shared-theme/ColorModeSelect';
 import { GoogleIcon, } from './CustomIcons';
 import AppAppBar from '../../Marketing-Page/components/AppAppBar';
+import { login } from '../../../api/authAPI';
+import auth from '../../../utils/auth';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -80,29 +82,17 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
     event.preventDefault();
   
     const data = new FormData(event.currentTarget);
-    const body = {
-      email: data.get('email'),
-      password: data.get('password')
+    const userInfo = {
+      email: data.get('email') as string,
+      password: data.get('password') as string,
     };
   
     try {
-      const response = await fetch('http://localhost:3001/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-  
-      const result = await response.json();
-      if (response.ok) {
-        alert("Login successful");
-        localStorage.setItem("token", result.token);
-        window.location.href = "/dashboardtest";
-      } else {
-        alert(`Login failed: ${result.message}`);
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      alert("Something went wrong. Please try again.");
+      const result = await login(userInfo);
+      auth.login(result.token); 
+    } catch (err) {
+      console.error("Login failed:", err);
+      alert("Invalid credentials. Try again.");
     }
   };
 
@@ -236,7 +226,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             <Typography sx={{ textAlign: 'center' }}>
               Don&apos;t have an account?{' '}
               <Link
-                href="/material-ui/getting-started/templates/sign-in/"
+                href="/sign-up"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >

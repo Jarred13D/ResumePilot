@@ -131,13 +131,13 @@ export {
 export { sequelize };
 
 // export default object with all models
-export default {
-  User,
-  Resume,
-  Certification,
-  Contact,
-  Experience,
-  Education,
-  Skill,
-  // Project
-};
+// export default {
+//   User,
+//   Resume,
+//   Certification,
+//   Contact,
+//   Experience,
+//   Education,
+//   Skill,
+//   // Project
+// };
