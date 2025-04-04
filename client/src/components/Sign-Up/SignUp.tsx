@@ -15,7 +15,7 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import AppTheme from '../../shared-theme/AppTheme';
 import ColorModeSelect from '../../shared-theme/ColorModeSelect';
-import { GoogleIcon, SitemarkIcon } from '../Sign-In/components/CustomIcons';
+import { GoogleIcon } from '../Sign-In/components/CustomIcons';
 // import auth from '../../utils/auth';
 // import { register } from '../../api/authAPI';
 import Snackbar from '@mui/material/Snackbar';
@@ -72,17 +72,17 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
   const [nameErrorMessage, setNameErrorMessage] = React.useState('');
 
   // alert setup for snackbar
-  const Alert = React.forwardRef<HTMLDivElement, any>(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
+  // const Alert = React.forwardRef<HTMLDivElement, any>(function Alert(props, ref) {
+  // return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  // });
   // snackbar setup
   const [snackOpen, setSnackOpen] = React.useState(false);
   const [snackMessage, setSnackMessage] = React.useState('');
   const [snackSeverity, setSnackSeverity] = React.useState<AlertColor>('success');
 
-  const handleSnackbarClose = () => {
-  setSnackOpen(false);
-  };
+  // const handleSnackbarClose = () => {
+  // setSnackOpen(false);
+  // };
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;

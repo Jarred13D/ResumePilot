@@ -4,7 +4,7 @@ import axios from 'axios';
 const ResumeUploader = () => {
     const [file, setFile] = useState<File | null>(null);
     const [message, setMessage] = useState<string | null>(null);
-    const [evaluatedText, setEvaluatedText] = useState("");
+    const [_evaluatedText, setEvaluatedText] = useState("");
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             setFile(e.target.files[0]);
@@ -37,6 +37,6 @@ const ResumeUploader = () => {
 
 export default ResumeUploader;
 
-function upload(file: File): string {
+function upload(_file: File): string {
     throw new Error('Function not implemented.');
 }
