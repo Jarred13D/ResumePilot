@@ -5,14 +5,17 @@ const router = express.Router();
 
 // POST /api/ai/resume
 router.post('/resume', async (req: Request, res: Response) => {
-  const { jobDescriptionString, resumeString } = req.body;
+  const { resumeString, jobDescription } = req.body;
 
-  if (!resumeString || !jobDescriptionString) {
-    return res.status(400).json({ error: "Missing resume or job description" });
+  try {
+    const resume = await generateResume(resumeString, jobDescription);
+    res.json({ resume });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to generate resume" });
   }
 
   try {
-    const enhancedResume = await generateResume(resumeString, jobDescriptionString);
+    const enhancedResume = await generateResume(resumeString, jobDescription);
     res.json({ enhancedResume });
   } catch (err) {
     res.status(500).json({ error: 'Failed to generate resume' });
