@@ -25,7 +25,7 @@ const ResumeDashboard: React.FC = () => {
   const [aiSuggestions, setAiSuggestions] = useState<string[]>([]);
   const [coverLetter, setCoverLetter] = useState('');
 
-  const generateResume = () => {
+  const generateResume = async () => {
     const resumeString = `
       Resume for: ${name}
 
@@ -48,7 +48,7 @@ const ResumeDashboard: React.FC = () => {
     const jobDescriptionString = `
     ${jobDescription}`;
 
-    console.log(resumeString); 
+    console.log(resumeString);
     console.log(jobDescriptionString)
 
     try {
@@ -65,7 +65,6 @@ const ResumeDashboard: React.FC = () => {
     }
   };
 
-  };
 
 
 
@@ -152,8 +151,9 @@ const ResumeDashboard: React.FC = () => {
         rows={8}
         value={coverLetter}
         placeholder="Generated cover letter will appear here..."
-        fullWidth
-        InputProps={{ readOnly: true }}
+          fullWidth
+          onChange={(e) => setCoverLetter(e.target.value)}
+        // InputProps={{ readOnly: true }}
       />
 
       <Box mt={3}>

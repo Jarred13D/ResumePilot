@@ -5,6 +5,7 @@ ResumePilot is an intelligent resume enhancement tool that leverages AI technolo
 
 ## Visuals
 ![Alt text](https://files.slack.com/files-pri/T07TSJ8KUMR-F08MCCQP6BA/image.png)
+
 ![Alt text](https://files.slack.com/files-pri/T07TSJ8KUMR-F08LS8W5MPE/image.png)
 
 ## Features ✨
@@ -122,7 +123,7 @@ Maggie Ellinwood -
 Jay Contreras -
 
 ## License 📄
-This project is licensed under the MIT License
+This project is licensed under the MIT License.
 
 
 Built with ❤️ using React and AI technology
