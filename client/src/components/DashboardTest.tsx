@@ -11,10 +11,23 @@ import {
   ListItem,
   ListItemText,
   Stack,
-  Divider
+  Divider,
+  CssBaseline
 } from '@mui/material';
-
+import AppAppBar from './Marketing-Page/components/AppAppBar';
+import AppTheme from '../shared-theme/AppTheme';
+import ColorModeSelect from '../shared-theme/ColorModeSelect';
+  
 const ResumeDashboard: React.FC = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.loggedIn()) {
+      navigate('/sign-in');
+    }
+  }
+  , []);
+
   const [name, setName] = useState('');
   const [summary, setSummary] = useState('');
   const [jobTitle, setJobTitle] = useState('');
@@ -54,15 +67,11 @@ const ResumeDashboard: React.FC = () => {
     console.log(jobDescriptionString)
   };
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-  if (!auth.loggedIn()) {
-    navigate('/sign-in');
-  }
-}, []);
-
   return (
+    <AppTheme>
+    <AppAppBar />
+    <CssBaseline enableColorScheme/>
+    <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
     <section id="dashboard">
     <Container maxWidth="md" sx={{ mt: 4, color: 'text.primary' }}>
       <Typography variant="h4" fontWeight="bold" gutterBottom color="primary">
@@ -163,6 +172,7 @@ const ResumeDashboard: React.FC = () => {
       </Box>
     </Container>
     </section>
+    </AppTheme>
   );
 };
 

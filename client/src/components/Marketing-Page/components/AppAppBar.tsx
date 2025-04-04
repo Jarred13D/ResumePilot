@@ -84,7 +84,7 @@ export default function AppAppBar() {
             }}
           >
             {auth.loggedIn() ? (
-            <Button onClick={() => auth.logout()}>
+            <Button onClick={() => auth.logout()} color="error" variant="outlined" size="small">
               Logout
             </Button>
             ) : (
