@@ -108,7 +108,14 @@ Enhanced AI capabilities
 Resume analytics dashboard
 
 ## Support 📧
-For support, please contact 
+For support, please contact
+Clinton Reynolds - eastwood188209@gmail.com
+Jarred Hampton - mellinwood1023
+Dan McClintic -
+Matt Mullen - mhmullen@icloud.com
+Maggie Ellinwood -
+Jay Contreras -
+
 
 ## License 📄
 Your chosen license
