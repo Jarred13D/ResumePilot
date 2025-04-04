@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",                            // Targeting ES5 for wide browser compatibility
+    "target": "ES5",                            // Targeting ES5 for wide browser compatibility
     "lib": ["dom", "esnext"],                   // Use DOM and ESNext libraries
     "allowJs": true,                            // Allow JavaScript files to be compiled
     "skipLibCheck": true,                       // Skip type checking of declaration files (speeds up compilation)
@@ -8,11 +8,11 @@
     "allowSyntheticDefaultImports": true,       // Allow default imports even if the module doesn't have a default export
     "strict": true,                             // Enable strict type-checking options
     "forceConsistentCasingInFileNames": true,   // Ensure consistent file naming
-    "module": "esnext",                         // Use ESNext module resolution
+    "module": "ESNext",                       // Use ESNext module resolution
     "moduleResolution": "node",                 // Node module resolution for compatibility with npm packages
     "jsx": "react-jsx",                        // Use the new JSX Transform (React 17+)
     "isolatedModules": true,                    // Ensures each file is treated as an isolated module
-    "noEmit": true,                             // Do not output any JavaScript files (useful when you just want to type-check)
+    "noEmit": false,                             // Do not output any JavaScript files (useful when you just want to type-check)
     "skipDefaultLibCheck": true,                // Skip type checking of the default library files
     "noUnusedLocals": true,                     // Show error for unused local variables
     "noUnusedParameters": true,                 // Show error for unused parameters

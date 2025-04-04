@@ -76,16 +76,34 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
     setOpen(false);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  
     const data = new FormData(event.currentTarget);
-    console.log({
+    const body = {
       email: data.get('email'),
-      password: data.get('password'),
-    });
+      password: data.get('password')
+    };
+  
+    try {
+      const response = await fetch('http://localhost:3001/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        alert("Login successful");
+        localStorage.setItem("token", result.token);
+        window.location.href = "/dashboardtest";
+      } else {
+        alert(`Login failed: ${result.message}`);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   const validateInputs = () => {
@@ -184,7 +202,6 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
               type="submit"
               fullWidth
               variant="contained"
-              onClick={validateInputs}
             >
               Sign in
             </Button>

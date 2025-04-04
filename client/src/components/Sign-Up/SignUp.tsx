@@ -13,9 +13,11 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import AppTheme from '../../../shared-theme/AppTheme';
-import ColorModeSelect from '../../../shared-theme/ColorModeSelect';
-import { GoogleIcon } from '../../Sign-In/components/CustomIcons';
+import AppTheme from '../../shared-theme/AppTheme';
+import ColorModeSelect from '../../shared-theme/ColorModeSelect';
+import { GoogleIcon, SitemarkIcon } from '../Sign-In/components/CustomIcons';
+// import auth from '../../utils/auth';
+// import { register } from '../../api/authAPI';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -104,19 +106,34 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     return isValid;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (nameError || emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent refresh
+  
     const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    const userInfo = {
+      username: data.get("name"),
+      email: data.get("email"),
+      password: data.get("password"),
+    };
+    console.log("User info being submitted:", userInfo);
+  
+    try {
+      const response = await fetch('http://localhost:3001/auth/register', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userInfo),
+      });
+  
+      if (response.ok) {
+        alert("Signup successful! You can now log in.");
+      } else {
+        alert("Signup failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("Signup failed. Please try again.");
+    }
+  }; 
 
   return (
     <AppTheme {...props}>
@@ -124,6 +141,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
       <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
       <SignUpContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">
+          {/* <SitemarkIcon /> */}
           <Typography
             component="h1"
             variant="h4"
@@ -209,7 +227,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
             <Typography sx={{ textAlign: 'center' }}>
               Already have an account?{' '}
               <Link
-                href="/material-ui/getting-started/templates/sign-in/"
+                href="/sign-in"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >
