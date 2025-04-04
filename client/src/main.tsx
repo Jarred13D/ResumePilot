@@ -1,19 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+// import { GoogleOAuthProvider } from '@react-oauth/google';
 import './index.css';
 
-import App from './App.tsx';
+import App from './App';
+import ErrorPage from './pages/ErrorPage';
+import MarketingPage from './components/Marketing-Page/Marketingpage';
+import SignIn from './components/Sign-In/components/SignIn';
+import SignUp from './components/Sign-Up/SignUp';
+import DashboardTest from './components/DashboardTest';
+import NotFound from './components/NotFound';
 
-import ErrorPage from './pages/ErrorPage.tsx';
-import MarketingPage from './components/Marketing-Page/Marketingpage.tsx';
-import SignIn from './components/Sign-In/components/SignIn.tsx';
-import SignUp from './components/Sign-Up/SignUp.tsx';
-import DashboardTest from './components/DashboardTest.tsx';
-import NotFound from './components/NotFound.tsx';
-
-const clientId = '506570133414-uh9vrkmdgan9mqt50g3jv62hfh2kot45.apps.googleusercontent.com';
+// const clientId = '506570133414-uh9vrkmdgan9mqt50g3jv62hfh2kot45.apps.googleusercontent.com';
 
 const router = createBrowserRouter([
   {
