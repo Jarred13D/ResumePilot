@@ -6,10 +6,10 @@ import './index.css';
 
 import App from './App';
 import ErrorPage from './pages/ErrorPage';
-import MarketingPage from './components/Marketing-Page/Marketingpage';
+import MarketingPage from './components/Home-Page/Home';
 import SignIn from './components/Sign-In/components/SignIn';
 import SignUp from './components/Sign-Up/SignUp';
-import DashboardTest from './components/DashboardTest';
+import DashboardTest from './components/ResumeDashboard';
 import NotFound from './components/NotFound';
 
 // const clientId = '506570133414-uh9vrkmdgan9mqt50g3jv62hfh2kot45.apps.googleusercontent.com';

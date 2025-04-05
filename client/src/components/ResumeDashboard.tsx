@@ -14,7 +14,7 @@ import {
   Divider,
   CssBaseline
 } from '@mui/material';
-import AppAppBar from './Marketing-Page/components/AppAppBar';
+import AppAppBar from './Home-Page/components/AppAppBar';
 import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
   
