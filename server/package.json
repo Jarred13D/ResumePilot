@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx tsc && ls dist",
     "start": "npm run build && node dist/server.js --ignore client",
     "dev": "npx nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -52,6 +52,6 @@
     "@types/node": "^22.14.0",
     "@types/react": "^19.0.12",
     "@types/react-router-dom": "^5.3.3",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   }
 }
