@@ -1,5 +1,8 @@
 import { Router, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const jwt = require('jsonwebtoken');
 import { User } from '../models/index.js';
 
 const router = Router();

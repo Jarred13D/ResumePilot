@@ -8,7 +8,10 @@ declare global {
     }
   }
 }
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const jwt = require('jsonwebtoken');
 
 // Define the interface for the JWT payload
 interface JwtPayload {

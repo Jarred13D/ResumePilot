@@ -1,5 +1,8 @@
 import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const bcrypt = require('bcrypt');
 
 // Define the required attributes for a user
 export interface UserAttributes {

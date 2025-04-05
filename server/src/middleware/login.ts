@@ -1,5 +1,5 @@
-import apiClient from './apiClient';
-import { saveToken, clearToken } from './tokenService';
+import apiClient from './apiClient.js';
+import { saveToken, clearToken } from './tokenService.js';
 
 const API_URL = 'http://localhost:3000/api/v1';
 
