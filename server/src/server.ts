@@ -20,14 +20,35 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve static files from Vite's client build
-app.use(express.static(path.join(__dirname, '../../client/dist')));
+const clientDistPath = path.resolve(__dirname, '../../client/dist');
 
-// Fallback route: for any route not handled by your API, serve index.html (SPA fallback)
-// console.log('Setting up fallback for: *');
-// app.get('*', (_req, res) => {
-//   res.sendFile(path.resolve(__dirname, '../../client/dist/index.html'));
-// });
+// Serve static files from Vite's client build
+app.use(express.static(clientDistPath));
+
+// Fallback route
+app.use((_req, res) => {
+  res.sendFile(path.join(clientDistPath, 'index.html'));
+});
+
+// Debug: Dump all registered route paths
+function printRoutes(app: any) {
+  console.log('\nRegistered routes:');
+  app._router.stack.forEach((middleware: any) => {
+    if (middleware.route) {
+      console.log(`→ ${middleware.route.path}`);
+    } else if (middleware.name === 'router') {
+      middleware.handle.stack.forEach((handler: any) => {
+        if (handler.route) {
+          console.log(`→ ${handler.route.path}`);
+        }
+      });
+    }
+  });
+}
+
+if (app._router && app._router.stack) {
+  printRoutes(app);
+}
 
 sequelize.sync({force: forceDatabaseRefresh}).then(() => {
   app.listen(PORT, () => {
