@@ -13,13 +13,13 @@ router.post('/resume', async (req: Request, res: Response) => {
   } catch (err) {
     res.status(500).json({ error: "Failed to generate resume" });
   }
-
-  try {
-    const enhancedResume = await generateResume(resumeString, jobDescription);
-    res.json({ enhancedResume });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to generate resume' });
-  }
+  // future implementation of the resume generation
+  // try {
+  //   const enhancedResume = await generateResume(resumeString, jobDescription);
+  //   res.json({ enhancedResume });
+  // } catch (err) {
+  //   res.status(500).json({ error: 'Failed to generate resume' });
+  // }
 });
 
 // // POST /api/ai/cover-letter
