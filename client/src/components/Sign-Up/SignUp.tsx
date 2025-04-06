@@ -20,6 +20,7 @@ import { GoogleIcon } from '../Sign-In/components/CustomIcons';
 // import { register } from '../../api/authAPI';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertColor } from '@mui/material/Alert';
+import AppAppBar from '../Home-Page/components/NavBar';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -161,9 +162,10 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
 
   return (
     <AppTheme {...props}>
+      <AppAppBar />
       <CssBaseline enableColorScheme />
-      <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
       <SignUpContainer direction="column" justifyContent="space-between">
+        <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
         <Card variant="outlined">
           {/* <SitemarkIcon /> */}
           <Typography

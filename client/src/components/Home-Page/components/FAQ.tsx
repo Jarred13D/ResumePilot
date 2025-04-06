@@ -65,7 +65,7 @@ export default function FAQ() {
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
               You can reach our customer support team by emailing&nbsp;
-              <Link href="mailto:support@email.com">support@email.com</Link>
+              <Link href="mailto:support@email.com">jarredhampton@hotmail.com</Link>
               &nbsp;. We&apos;re here to assist you
               promptly.
             </Typography>

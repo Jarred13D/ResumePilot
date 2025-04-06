@@ -17,7 +17,7 @@ import ForgotPassword from './ForgotPassword';
 import AppTheme from '../../../shared-theme/AppTheme';
 import ColorModeSelect from '../../../shared-theme/ColorModeSelect';
 import { GoogleIcon, } from './CustomIcons';
-import AppAppBar from '../../Marketing-Page/components/AppAppBar';
+import AppAppBar from '../../Home-Page/components/NavBar';
 import { login } from '../../../api/authAPI';
 import auth from '../../../utils/auth';
 import Snackbar from '@mui/material/Snackbar';

@@ -83,8 +83,11 @@ export default function AppAppBar() {
           <Typography variant="h6" color="info" className="font-mono text-xl font-bold text-white">
             ResumePilot
           </Typography>
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button component={Link} to="/dashboard" variant="text" color="info" size="small" href="#dashboard">
+            <Box sx={{ display: { xs: 'none', md: 'flex'} }}>
+            <Button component={Link} to="/" variant="text" color="inherit" size="small" href="#">
+                Home
+              </Button>
+              <Button component={Link} to="/dashboard" variant="text" color="inherit" size="small" href="#dashboard">
                 Dashboard
               </Button>
               {/* <Button variant="text" color="info" size="small">
@@ -93,7 +96,7 @@ export default function AppAppBar() {
               {/* <Button variant="text" color="info" size="small">
                 Pricing
               </Button> */}
-              <Button component={Link} to="/faq" variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
+              <Button component={Link} to="/faq" variant="text" color="inherit" size="small" sx={{ minWidth: 0 }}>
                 FAQ
               </Button>
             </Box>
@@ -107,15 +110,20 @@ export default function AppAppBar() {
             }}
           >
             {isLoggedIn ? (
-            <Button onClick={handleLogout} color="error" variant="outlined" size="small">
+            <Button onClick={handleLogout} color="primary" variant="outlined" size="small">
               Logout
             </Button>
             ) : (
             <>
-            <Button component={Link} to="/sign-in" color="primary" variant="text" size="small">
+            <Button component={Link} to="/sign-in" color="inherit" variant="text" size="small">
               Sign in
             </Button>
-            <Button component={Link} to="/sign-up" color="primary" variant="contained" size="small">
+            <Button 
+            component={Link} 
+            to="/sign-up"
+            variant="contained" 
+            size="small"
+            color='primary'>
               Sign up
             </Button>
             </>
@@ -155,7 +163,17 @@ export default function AppAppBar() {
                 <MenuItem>FAQ</MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
-                  <Button color="primary" variant="contained" fullWidth>
+                  <Button 
+                  variant="contained" 
+                  fullWidth
+                  sx={(theme) => ({ 
+                    minWidth: 'fit-content',
+                    backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#000',
+                    color: theme.palette.mode === 'dark' ? '#000' : '#fff',
+                    '&:hover': {
+                    backgroundColor: theme.palette.mode === 'dark' ? '#f5f5f5' : '#111',
+                  },
+                  })}>
                     Sign up
                   </Button>
                 </MenuItem>
