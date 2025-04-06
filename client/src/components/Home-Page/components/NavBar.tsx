@@ -110,7 +110,7 @@ export default function AppAppBar() {
             }}
           >
             {isLoggedIn ? (
-            <Button onClick={handleLogout} color="error" variant="outlined" size="small">
+            <Button onClick={handleLogout} color="primary" variant="outlined" size="small">
               Logout
             </Button>
             ) : (
