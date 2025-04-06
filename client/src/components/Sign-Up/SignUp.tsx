@@ -20,7 +20,7 @@ import { GoogleIcon } from '../Sign-In/components/CustomIcons';
 // import { register } from '../../api/authAPI';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertColor } from '@mui/material/Alert';
-import AppAppBar from '../Home-Page/components/AppAppBar';
+import AppAppBar from '../Home-Page/components/NavBar';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
