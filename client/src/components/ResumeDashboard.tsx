@@ -17,6 +17,8 @@ import {
 import AppAppBar from './Home-Page/components/NavBar';
 import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
   
 const ResumeDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -37,34 +39,52 @@ const ResumeDashboard: React.FC = () => {
   const [degree, setDegree] = useState('');
   const [skills, setSkills] = useState('');
   const [jobDescription, setJobDescription] = useState('');
-  const [aiSuggestions, _setAiSuggestions] = useState<string[]>([]);
+  const [enhancedResume, setEnhancedResume] = useState<string>('');
   const [coverLetter, _setCoverLetter] = useState('');
 
-  const generateResume = () => {
+  const generateResume = async () => {
     const resumeString = `
-      Resume for: ${name}
+      ## ${name}
 
-      Professional Summary:
-      ${summary}
+### **Professional Summary**
+${summary}
 
-      Job Title: ${jobTitle}
-      Company: ${company}
-      Responsibilities:
-      ${description}
+### **Skills**
+${skills}
 
-      Education:
-      ${education} - ${degree}
+### **Education**
+**${degree}** | ${education}  
 
-      Skills:
-      ${skills}
-
+### **Professional Experience**
+**${jobTitle}**  
+${company}  
+${description}
     `;
-
-    const jobDescriptionString = `
-    ${jobDescription}`;
-
-    console.log(resumeString); 
-    console.log(jobDescriptionString)
+  
+    const jobDescriptionString = jobDescription;
+  
+    try {
+      const response = await fetch('/api/ai/resume', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          resumeString,
+          jobDescription: jobDescriptionString,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to generate enhanced resume');
+      }
+  
+      const data = await response.json();
+      setEnhancedResume(data.resume);
+    } catch (error) {
+      console.error('Error enhancing resume:', error);
+      alert('There was an error enhancing your resume. Please try again.');
+    }
   };
 
   return (
@@ -73,30 +93,37 @@ const ResumeDashboard: React.FC = () => {
     <CssBaseline enableColorScheme/>
     <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
     <section id="dashboard">
-    <Container maxWidth="md" sx={{ mt: 4, color: 'text.primary' }}>
-      <Typography variant="h4" fontWeight="bold" gutterBottom color="primary">
-        My Resumes
-      </Typography>
+    <Container maxWidth="lg" sx={{ mt: 4, color: 'text.primary' }}>
+  <Typography variant="h4" fontWeight="bold" gutterBottom color="primary">
+    My Resumes
+  </Typography>
 
-      <Button variant="contained" sx={{ backgroundColor: 'primary.main', mb: 2 }}>
-        + New Resume
-      </Button>
+  <Button variant="contained" sx={{ backgroundColor: 'primary.main', mb: 2 }}>
+    + New Resume
+  </Button>
 
-      <List>
-        <ListItem>
-          <ListItemText primary="Resume #1" />
-          <Button color="primary">Edit</Button>
-          <Button color="error">Delete</Button>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Resume #2" />
-          <Button color="primary">Edit</Button>
-          <Button color="error">Delete</Button>
-        </ListItem>
-      </List>
+  <List>
+    <ListItem>
+      <ListItemText primary="Resume #1" />
+      <Button color="primary">Edit</Button>
+      <Button color="error">Delete</Button>
+    </ListItem>
+    <ListItem>
+      <ListItemText primary="Resume #2" />
+      <Button color="primary">Edit</Button>
+      <Button color="error">Delete</Button>
+    </ListItem>
+  </List>
 
-      <Divider sx={{ my: 3 }} />
+  <Divider sx={{ my: 3 }} />
 
+  <Stack
+    direction={{ xs: 'column', md: 'row' }}
+    spacing={4}
+    alignItems="flex-start"
+  >
+    {/* LEFT: FORM */}
+    <Box sx={{ flex: 1, minWidth: '300px' }}>
       <Typography variant="h5" fontWeight="bold" gutterBottom color="primary">
         Resume Builder
       </Typography>
@@ -127,50 +154,59 @@ const ResumeDashboard: React.FC = () => {
         fullWidth
       />
 
-      <Button variant="contained" color="success" sx={{ my: 2 }}
-      onClick={generateResume} >
+      <Button variant="contained" color="success" sx={{ my: 2 }} onClick={generateResume}>
         Enhance My Resume
       </Button>
+    </Box>
 
-      {aiSuggestions.length > 0 && (
-        <Box>
-          <Typography variant="h6" color="primary">AI Suggestions</Typography>
-          <List>
-            {aiSuggestions.map((suggestion, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={`• ${suggestion}`} />
-              </ListItem>
-            ))}
-          </List>
+    {/* RIGHT: AI-ENHANCED RESUME */}
+    {enhancedResume && (
+      <Box sx={{ flex: 1, minWidth: '300px' }}>
+        <Typography variant="h6" gutterBottom color="primary">
+          Enhanced Resume
+        </Typography>
+        <Box sx={{
+          backgroundColor: 'background.paper',
+          p: 3,
+          borderRadius: 2,
+          maxHeight: '800px', 
+          overflowY: 'auto',
+          lineHeight: 1.5,
+          whitespace: 'pre-wrap',
+        }}>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {enhancedResume}
+          </ReactMarkdown>
         </Box>
-      )}
-
-      <Divider sx={{ my: 4 }} />
-
-      <Typography variant="h5" fontWeight="bold" gutterBottom color="primary">
-        AI-Generated Cover Letter
-      </Typography>
-
-      <Button variant="contained" sx={{ backgroundColor: 'primary.main', mb: 2 }}>
-        Generate Cover Letter
-      </Button>
-
-      <TextField
-        multiline
-        rows={8}
-        value={coverLetter}
-        placeholder="Generated cover letter will appear here..."
-        fullWidth
-        InputProps={{ readOnly: true }}
-      />
-
-      <Box mt={3}>
-        <Button variant="outlined" color="primary">Preview PDF</Button>
-        <Button variant="contained" sx={{ ml: 2, backgroundColor: 'primary.dark' }}>
-          Download PDF
-        </Button>
+        <Box mt={3}>
+    <Button variant="outlined" color="primary">Preview PDF</Button>
+    <Button variant="contained" sx={{ ml: 2, backgroundColor: 'primary.dark' }}>
+      Download PDF
+    </Button>
+  </Box>
       </Box>
-    </Container>
+      
+    )}
+  </Stack>
+
+  {/* COVER LETTER SECTION */}
+  <Divider sx={{ my: 4 }} />
+  <Typography variant="h5" fontWeight="bold" gutterBottom color="primary">
+    AI-Generated Cover Letter
+  </Typography>
+
+  <TextField
+    multiline
+    rows={8}
+    value={coverLetter}
+    placeholder="Generated cover letter will appear here..."
+    fullWidth
+    InputProps={{ readOnly: true }}
+  />
+  <Button variant="contained" sx={{ backgroundColor: 'primary.main', mb: 2 }} >
+    Generate Cover Letter
+  </Button>
+</Container>
     </section>
     </AppTheme>
   );

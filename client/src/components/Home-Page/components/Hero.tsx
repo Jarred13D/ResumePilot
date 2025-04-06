@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import visuallyHidden from '@mui/utils/visuallyHidden';
 import { styled } from '@mui/material/styles';
-import ResumePilotImage from '../../../assets/ResumePilot.png';
+import ResumePilotImage from '../../../assets/background_with_resumes.png';
 
 const StyledBox = styled('div')(({ theme }) => ({
   alignSelf: 'center',
