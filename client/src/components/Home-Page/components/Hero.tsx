@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import visuallyHidden from '@mui/utils/visuallyHidden';
-import { styled } from '@mui/material/styles';
+import { styled, Theme } from '@mui/material/styles';
 import ResumePilotImage from '../../../assets/background_with_resumes.png';
 
 const StyledBox = styled('div')(({ theme }) => ({
@@ -79,7 +79,7 @@ export default function Hero() {
             <Typography
               component="span"
               variant="h1"
-              sx={(theme) => ({
+              sx={(theme: Theme) => ({
                 fontSize: 'inherit',
                 color: 'primary.main',
                 ...theme.applyStyles('dark', {
@@ -118,7 +118,7 @@ export default function Hero() {
               aria-label="Enter your email address"
               placeholder="Your email address"
               fullWidth
-              slotProps={{
+              inputProps={{
                 htmlInput: {
                   autoComplete: 'off',
                   'aria-label': 'Enter your email address',

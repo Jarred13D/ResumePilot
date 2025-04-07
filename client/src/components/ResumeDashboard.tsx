@@ -19,6 +19,8 @@ import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import jsPDF from 'jspdf';
+import { marked } from 'marked';
   
 const ResumeDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -85,6 +87,87 @@ ${description}
       console.error('Error enhancing resume:', error);
       alert('There was an error enhancing your resume. Please try again.');
     }
+  };
+  const downloadPdf = () => {
+    if (!enhancedResume) return;
+  
+    const doc = new jsPDF();
+    const margin = 10;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const maxLineWidth = pageWidth - margin * 2;
+  
+    let y = margin;
+    doc.setFont('helvetica');
+
+    const tokens = marked.lexer(enhancedResume);
+
+    const addLine = (text: string) => {
+      const segments = text.split(/(\*\*.*?\*\*)/); // Split by bold segments
+      const lines: string[] = [];
+    
+      segments.forEach(segment => {
+        if (!segment) return;
+    
+        if (/^\*\*(.*?)\*\*$/.test(segment)) {
+          const boldText = segment.replace(/\*\*/g, '');
+          doc.setFont('helvetica', 'bold');
+          const wrapped = doc.splitTextToSize(boldText, maxLineWidth);
+          lines.push(...wrapped);
+        } else {
+          doc.setFont('helvetica', 'normal');
+          const wrapped = doc.splitTextToSize(segment, maxLineWidth);
+          lines.push(...wrapped);
+        }
+      });
+
+      for (const line of lines) {
+        if (y > pageHeight - margin) return false;
+        doc.text(line, margin, y);
+        y += 7;
+      }
+      return true;
+    };
+  
+    for (const token of tokens) {
+      if (y > pageHeight - margin) break;
+  
+      switch (token.type) {
+        case 'heading':
+          doc.setFontSize(token.depth === 1 ? 18 : token.depth === 2 ? 16 : 14);
+          addLine(token.text);
+          y += 3;
+          break;
+  
+        case 'paragraph':
+          doc.setFontSize(12);
+          addLine(token.text);
+          y += 2;
+          break;
+  
+        case 'list':
+          doc.setFontSize(12);
+          for (const item of token.items) {
+            if (!addLine(`• ${item.text}`)) break;
+          }
+          y += 2;
+          break;
+  
+        case 'text':
+          doc.setFontSize(12);
+          addLine(token.text);
+          break;
+  
+        default:
+          break;
+      }
+  
+      if (y > pageHeight - margin) {
+        break;
+      }
+    }
+  
+    doc.save('enhanced_resume.pdf');
   };
 
   return (
@@ -165,7 +248,8 @@ ${description}
         <Typography variant="h6" gutterBottom color="primary">
           Enhanced Resume
         </Typography>
-        <Box sx={{
+        <Box id="resume-preview"
+        sx={{
           backgroundColor: 'background.paper',
           p: 3,
           borderRadius: 2,
@@ -173,14 +257,15 @@ ${description}
           overflowY: 'auto',
           lineHeight: 1.5,
           whitespace: 'pre-wrap',
-        }}>
+        }}
+        >
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {enhancedResume}
           </ReactMarkdown>
         </Box>
         <Box mt={3}>
     <Button variant="outlined" color="primary">Preview PDF</Button>
-    <Button variant="contained" sx={{ ml: 2, backgroundColor: 'primary.dark' }}>
+    <Button variant="contained" sx={{ ml: 2, backgroundColor: 'primary.dark' }} onClick={downloadPdf}>
       Download PDF
     </Button>
   </Box>
