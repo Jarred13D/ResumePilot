@@ -6,12 +6,14 @@ import { authenticateToken } from '../middleware/auth.js';
 
 const router = Router();
 
-// Allow public access to /api/ai routes
+// Allow public access to /auth /api/ai routes
+console.log('Registering /auth');
+router.use('/auth', authRoutes);
+console.log('Registering /api/ai');
 router.use('/api/ai', aiRoutes);
 
-router.use('/auth', authRoutes);
-
 // Protect everything else under /api
+console.log('Registering /api/v1');
 router.use('/api/v1', authenticateToken, apiRoutes);
 
 export default router;

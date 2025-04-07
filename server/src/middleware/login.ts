@@ -1,7 +1,7 @@
-import apiClient from './apiClient';
-import { saveToken, clearToken } from './tokenService';
+import apiClient from './apiClient.js';
+import { saveToken, clearToken } from './tokenService.js';
 
-const API_URL = 'http://localhost:3000/api/v1';
+const API_URL = '/api/v1';
 
 export const login = async (email: string, password: string) => {
   try {

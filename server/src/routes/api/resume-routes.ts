@@ -1,6 +1,6 @@
 // import express from 'express';
 // import type { Request, Response } from 'express';
-// import { ResumeData } from '../../models/resumeData.ts';
+// import { ResumeData } from '../../models/resumeData.js';
 
 // const router = express.Router();
 

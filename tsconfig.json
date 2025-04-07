@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES5",                            // Targeting ES5 for wide browser compatibility
+    //"incremental": true,                        // Enable incremental compilation
+    "target": "ES2020",                         
     "lib": ["dom", "esnext"],                   // Use DOM and ESNext libraries
     "allowJs": true,                            // Allow JavaScript files to be compiled
     "skipLibCheck": true,                       // Skip type checking of declaration files (speeds up compilation)
@@ -8,22 +9,26 @@
     "allowSyntheticDefaultImports": true,       // Allow default imports even if the module doesn't have a default export
     "strict": true,                             // Enable strict type-checking options
     "forceConsistentCasingInFileNames": true,   // Ensure consistent file naming
-    "module": "ESNext",                       // Use ESNext module resolution
-    "moduleResolution": "node",                 // Node module resolution for compatibility with npm packages
+    "module": "NodeNext",                       // Use ESNext module resolution
+    "moduleResolution": "nodenext",                 // Node module resolution for compatibility with npm packages
     "jsx": "react-jsx",                        // Use the new JSX Transform (React 17+)
-    "isolatedModules": true,                    // Ensures each file is treated as an isolated module
-    "noEmit": false,                             // Do not output any JavaScript files (useful when you just want to type-check)
+    "isolatedModules": false,                    // Ensures each file is treated as an isolated module
+    "noEmit": false,                             // Do not output any JavaScript files
     "skipDefaultLibCheck": true,                // Skip type checking of the default library files
     "noUnusedLocals": true,                     // Show error for unused local variables
     "noUnusedParameters": true,                 // Show error for unused parameters
     "noImplicitReturns": true,                  // Ensure functions always return a value
-    "noImplicitAny": true,                      // Raise an error when a variable has an implicit 'any' type
+    "noImplicitAny": false,                      // Raise an error when a variable has an implicit 'any' type
     "downlevelIteration": true,                 // Enable downlevel iteration for older browsers
-    "resolveJsonModule": true                   // Allow importing JSON files directly
+    "resolveJsonModule": true,                  // Allow importing JSON files directly
+    "typeRoots": [                              // Specify the location of type definitions
+      "node_modules/@types",                    // Default location for type definitions
+      "src/types"                               // Custom types directory
+    ],
   },
+  "include": ["**/*"],                     // Include all files in the project
   "exclude": [
     "node_modules",                             // Exclude the 'node_modules' directory
-    "build",                                    // Exclude the 'build' output directory
-    "dist"                                      // Exclude the 'dist' output directory
+    "dist"                                     // Exclude the 'dist' output directory
   ]
 }

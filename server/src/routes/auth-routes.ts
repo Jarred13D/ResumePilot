@@ -1,9 +1,13 @@
 import { Router, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import { User } from '../models/user.js';
+// import jwt from 'jsonwebtoken';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const jwt = require('jsonwebtoken');
+import { User } from '../models/index.js';
 
 const router = Router();
 
+// POST /auth/register
 router.post('/register', async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
@@ -15,14 +19,15 @@ router.post('/register', async (req: Request, res: Response) => {
 
   try {
     const existingUser = await User.findOne({ where: { email } });
+    console.log('Existing user:', existingUser);
+
     if (existingUser) {
       return res.status(400).json({ message: 'Email already registered' });
     }
 
-    // Clean build (do NOT manually hash here)
-    const newUser = await User.create({ username, email, password, createdAt: new Date(), updatedAt: new Date() });
-
-    console.log('Built user before save:', newUser);
+    console.log('Creating new user...');
+    const newUser = await User.create({ username, email, password });
+    console.log('New user created:', newUser);
 
     return res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
@@ -31,6 +36,7 @@ router.post('/register', async (req: Request, res: Response) => {
   }
 });
 
+// POST /auth/login
 router.post('/login', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -40,8 +46,16 @@ router.post('/login', async (req: Request, res: Response) => {
     }
 
     const user = await User.findOne({ where: { email } });
+    console.log('User found:', !!user);
 
-    if (!user || !(await user.isValidPassword(password))) {
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid credentials (user not found)' });
+    }
+
+    const isMatch = await user.isValidPassword(password);
+    console.log("Password match:", isMatch);
+
+    if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 

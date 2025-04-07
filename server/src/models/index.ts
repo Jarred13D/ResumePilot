@@ -1,5 +1,5 @@
-import sequelize from '../config/connection.js'
-// import { Sequelize } from 'sequelize';
+import sequelize from '../config/connection.js';
+//import { Sequelize } from 'sequelize';
 
 // import all factory functions
 import { UserFactory } from './user.js';
@@ -131,13 +131,13 @@ export {
 export { sequelize };
 
 // export default object with all models
-export default {
-  User,
-  Resume,
-  Certification,
-  Contact,
-  Experience,
-  Education,
-  Skill,
-  // Project
-};
+// export default {
+//   User,
+//   Resume,
+//   Certification,
+//   Contact,
+//   Experience,
+//   Education,
+//   Skill,
+//   // Project
+// };

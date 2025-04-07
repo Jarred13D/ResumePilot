@@ -1,5 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+
+// Extend the Request interface to include the user property
+declare global {
+  namespace Express {
+    interface Request {
+      user?: JwtPayload;
+    }
+  }
+}
+// import jwt from 'jsonwebtoken';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const jwt = require('jsonwebtoken');
 
 // Define the interface for the JWT payload
 interface JwtPayload {
@@ -8,6 +20,7 @@ interface JwtPayload {
 
 // Middleware function to authenticate JWT token
 export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+  console.log(`Authenticating route: ${req.path}`);
   // Get the authorization header from the request
   const authHeader = req.headers.authorization;
 

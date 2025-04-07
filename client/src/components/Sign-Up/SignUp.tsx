@@ -15,9 +15,12 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import AppTheme from '../../shared-theme/AppTheme';
 import ColorModeSelect from '../../shared-theme/ColorModeSelect';
-import { GoogleIcon, SitemarkIcon } from '../Sign-In/components/CustomIcons';
+import { GoogleIcon } from '../Sign-In/components/CustomIcons';
 // import auth from '../../utils/auth';
 // import { register } from '../../api/authAPI';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertColor } from '@mui/material/Alert';
+import AppAppBar from '../Home-Page/components/NavBar';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -69,6 +72,19 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState('');
 
+  // alert setup for snackbar
+  // const Alert = React.forwardRef<HTMLDivElement, any>(function Alert(props, ref) {
+  // return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  // });
+  // snackbar setup
+  const [snackOpen, setSnackOpen] = React.useState(false);
+  const [snackMessage, setSnackMessage] = React.useState('');
+  const [snackSeverity, setSnackSeverity] = React.useState<AlertColor>('success');
+
+  // const handleSnackbarClose = () => {
+  // setSnackOpen(false);
+  // };
+
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;
     const password = document.getElementById('password') as HTMLInputElement;
@@ -118,28 +134,38 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     console.log("User info being submitted:", userInfo);
   
     try {
-      const response = await fetch('http://localhost:3001/auth/register', {
+      const response = await fetch('/auth/register', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userInfo),
       });
   
       if (response.ok) {
-        alert("Signup successful! You can now log in.");
+        setSnackMessage("Signup successful! Redirecting to login...");
+        setSnackSeverity("success");
+        setSnackOpen(true);
+        setTimeout(() => {
+          window.location.href = "/sign-in";
+        }, 2000);
       } else {
-        alert("Signup failed. Please try again.");
+        setSnackMessage("Signup failed. Please try again.");
+        setSnackSeverity("error");
+        setSnackOpen(true);
       }
     } catch (error) {
       console.error("Signup error:", error);
-      alert("Signup failed. Please try again.");
+      setSnackMessage("Signup failed. Please try again.");
+      setSnackSeverity("error");
+      setSnackOpen(true);
     }
   }; 
 
   return (
     <AppTheme {...props}>
+      <AppAppBar />
       <CssBaseline enableColorScheme />
-      <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
       <SignUpContainer direction="column" justifyContent="space-between">
+        <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
         <Card variant="outlined">
           {/* <SitemarkIcon /> */}
           <Typography
@@ -235,6 +261,16 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
               </Link>
             </Typography>
           </Box>
+          <Snackbar
+  open={snackOpen}
+  autoHideDuration={3000}
+  onClose={() => setSnackOpen(false)}
+  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+>
+  <MuiAlert elevation={6} variant="filled" severity={snackSeverity}>
+    {snackMessage}
+  </MuiAlert>
+</Snackbar>
         </Card>
       </SignUpContainer>
     </AppTheme>

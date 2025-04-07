@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,6 +16,7 @@ import ColorModeIconDropdown from '../../../shared-theme/ColorModelDropdown';
 //import Sitemark from '../SitemarkIcon';
 import type {} from '@mui/material/themeCssVarsAugmentation';
 import { Typography } from '@mui/material';
+import auth from '../../../utils/auth';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -35,9 +36,32 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 export default function AppAppBar() {
   const [open, setOpen] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(auth.loggedIn());
+  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
+  };
+
+  React.useEffect(() => {
+    const checkLogin = () => setIsLoggedIn(auth.loggedIn());
+
+    checkLogin();
+
+    // Update state when coming back to tab or storage changes
+    window.addEventListener('focus', checkLogin);
+    window.addEventListener('storage', checkLogin);
+
+    return () => {
+      window.removeEventListener('focus', checkLogin);
+      window.removeEventListener('storage', checkLogin);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    auth.logout();
+    setIsLoggedIn(false);
+    navigate('/sign-in'); // Optional: redirect after logout
   };
 
   return (
@@ -59,8 +83,11 @@ export default function AppAppBar() {
           <Typography variant="h6" color="info" className="font-mono text-xl font-bold text-white">
             ResumePilot
           </Typography>
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button component={Link} to="/dashboard" variant="text" color="info" size="small" href="#dashboard">
+            <Box sx={{ display: { xs: 'none', md: 'flex'} }}>
+            <Button component={Link} to="/" variant="text" color="inherit" size="small" href="#">
+                Home
+              </Button>
+              <Button component={Link} to="/dashboard" variant="text" color="inherit" size="small" href="#dashboard">
                 Dashboard
               </Button>
               {/* <Button variant="text" color="info" size="small">
@@ -69,7 +96,7 @@ export default function AppAppBar() {
               {/* <Button variant="text" color="info" size="small">
                 Pricing
               </Button> */}
-              <Button component={Link} to="/faq" variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
+              <Button component={Link} to="/faq" variant="text" color="inherit" size="small" sx={{ minWidth: 0 }}>
                 FAQ
               </Button>
             </Box>
@@ -82,12 +109,25 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            <Button component={Link} to="/sign-in" color="primary" variant="text" size="small">
+            {isLoggedIn ? (
+            <Button onClick={handleLogout} color="primary" variant="outlined" size="small">
+              Logout
+            </Button>
+            ) : (
+            <>
+            <Button component={Link} to="/sign-in" color="inherit" variant="text" size="small">
               Sign in
             </Button>
-            <Button component={Link} to="/sign-up" color="primary" variant="contained" size="small">
+            <Button 
+            component={Link} 
+            to="/sign-up"
+            variant="contained" 
+            size="small"
+            color='primary'>
               Sign up
             </Button>
+            </>
+            )}
             <ColorModeIconDropdown />
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
@@ -123,7 +163,17 @@ export default function AppAppBar() {
                 <MenuItem>FAQ</MenuItem>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
-                  <Button color="primary" variant="contained" fullWidth>
+                  <Button 
+                  variant="contained" 
+                  fullWidth
+                  sx={(theme) => ({ 
+                    minWidth: 'fit-content',
+                    backgroundColor: theme.palette.mode === 'dark' ? '#fff' : '#000',
+                    color: theme.palette.mode === 'dark' ? '#000' : '#fff',
+                    '&:hover': {
+                    backgroundColor: theme.palette.mode === 'dark' ? '#f5f5f5' : '#111',
+                  },
+                  })}>
                     Sign up
                   </Button>
                 </MenuItem>

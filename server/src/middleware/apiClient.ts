@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { getToken, clearToken } from './tokenService';
+import { getToken, clearToken } from './tokenService.js';
 
-const API_URL = 'http://localhost:3000/api/v1';
+const API_URL = '/api/v1';
 
 const apiClient = axios.create({
   baseURL: API_URL,

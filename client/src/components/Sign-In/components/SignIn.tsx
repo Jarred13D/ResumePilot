@@ -17,7 +17,12 @@ import ForgotPassword from './ForgotPassword';
 import AppTheme from '../../../shared-theme/AppTheme';
 import ColorModeSelect from '../../../shared-theme/ColorModeSelect';
 import { GoogleIcon, } from './CustomIcons';
-import AppAppBar from '../../Marketing-Page/components/AppAppBar';
+import AppAppBar from '../../Home-Page/components/NavBar';
+import { login } from '../../../api/authAPI';
+import auth from '../../../utils/auth';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertColor } from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -68,6 +73,14 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
+  const [snackOpen, setSnackOpen] = React.useState(false);
+  const [snackMessage, setSnackMessage] = React.useState('');
+  const [snackSeverity, setSnackSeverity] = React.useState<AlertColor>('success');
+
+  const handleSnackbarClose = () => {
+  setSnackOpen(false);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -76,35 +89,37 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
     setOpen(false);
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  
-    const data = new FormData(event.currentTarget);
-    const body = {
-      email: data.get('email'),
-      password: data.get('password')
-    };
-  
-    try {
-      const response = await fetch('http://localhost:3001/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-  
-      const result = await response.json();
-      if (response.ok) {
-        alert("Login successful");
-        localStorage.setItem("token", result.token);
-        window.location.href = "/dashboardtest";
-      } else {
-        alert(`Login failed: ${result.message}`);
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      alert("Something went wrong. Please try again.");
-    }
+  event.preventDefault();
+
+  if (!validateInputs()) return;
+
+  const data = new FormData(event.currentTarget);
+  const userInfo = {
+    email: data.get('email') as string,
+    password: data.get('password') as string,
   };
+
+  try {
+    const result = await login(userInfo);
+    auth.login(result.token);
+
+    setSnackMessage("Login successful! Redirecting...");
+    setSnackSeverity("success");
+    setSnackOpen(true);
+
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 2000);
+  } catch (err) {
+    console.error("Login failed:", err);
+    setSnackMessage("Invalid credentials. Try again.");
+    setSnackSeverity("error");
+    setSnackOpen(true);
+  }
+};
 
   const validateInputs = () => {
     const email = document.getElementById('email') as HTMLInputElement;
@@ -186,7 +201,6 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                autoFocus
                 required
                 fullWidth
                 variant="outlined"
@@ -236,7 +250,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             <Typography sx={{ textAlign: 'center' }}>
               Don&apos;t have an account?{' '}
               <Link
-                href="/material-ui/getting-started/templates/sign-in/"
+                href="/sign-up"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >
@@ -244,6 +258,16 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
               </Link>
             </Typography>
           </Box>
+          <Snackbar
+  open={snackOpen}
+  autoHideDuration={3000}
+  onClose={handleSnackbarClose}
+  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+>
+  <MuiAlert elevation={6} variant="filled" severity={snackSeverity}>
+    {snackMessage}
+  </MuiAlert>
+</Snackbar>
         </Card>
       </SignInContainer>
     </AppTheme>
