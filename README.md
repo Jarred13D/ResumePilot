@@ -88,18 +88,11 @@ Maintain consistent formatting
 
 Regular updates to keep content fresh
 
-## Contributing 🤝
-We welcome contributions to ResumePilot! Please follow these steps:
+## Links
 
-Fork the repository
+gitHub: https://github.com/Jarred13D/ResumePilot
 
-Create a feature branch
-
-Commit your changes
-
-Push to the branch
-
-Open a Pull Request
+render: https://resumepilot-r1lo.onrender.com/
 
 ## Future Enhancements 🔮
 Multiple resume template options
@@ -116,7 +109,7 @@ Resume analytics dashboard
 For support, please contact
 Clinton Reynolds - eastwood188209@gmail.com
 Jarred Hampton - jarred.c.hampton@gmail.com
-Dan McClintic -
+Dan McClintic -dan.mcclintic@gmail.com
 Matt Mullen - mhmullen@icloud.com
 Maggie Ellinwood - mellinwood1023@gmail.com
 Jay Contreras -

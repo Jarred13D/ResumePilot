@@ -17,7 +17,7 @@ export default function ForgotPassword({ open, handleClose }: ForgotPasswordProp
     <Dialog
       open={open}
       onClose={handleClose}
-      slotProps={{
+      PaperProps={{
         paper: {
           component: 'form',
           onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
