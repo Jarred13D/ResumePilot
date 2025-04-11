@@ -4,8 +4,10 @@ ResumePilot is an intelligent resume enhancement tool that leverages AI technolo
 
 ## Visuals
 
-https://files.slack.com/files-pri/T07TSJ8KUMR-F08MCCQP6BA/image.png
-https://files.slack.com/files-pri/T07TSJ8KUMR-F08LS8W5MPE/image.png
+![image](https://github.com/user-attachments/assets/9d9f788b-8a7a-4905-a905-12f206b62c52)
+![image](https://github.com/user-attachments/assets/65c2af6f-542d-44fc-bede-edb6adbe33ab)
+![image](https://github.com/user-attachments/assets/ed70216a-ee02-435c-bb28-478e0127289a)
+
 
 ## Features ✨
 
