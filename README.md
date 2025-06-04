@@ -121,3 +121,27 @@ This project is licensed under the MIT License
 
 
 Built with ❤️ using React and AI technology
+
+DB_NAME='resume_db'
+DB_USER='postgres'
+DB_PASSWORD=''
+JWT_SECRET_KEY=''
+OPENAI_API_KEY=
+
+11:12
+am i missing any env variables?
+
+Jarred Hampton
+11:13 AM
+For local testing?
+
+Matt Mullen
+11:13 AM
+ya
+11:13
+i got an OPenAI key
+
+Jarred Hampton
+11:14 AM
+Just input a random string for the jwt secret. That should be it.
+Make sure you’ve pulled from git to update your local. Run npm i in root, client and server. Run npm start in server and once server is running, npm run dev in client
