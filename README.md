@@ -1,4 +1,4 @@
-# ResumePilot 🚀
+# ResumePilot
 
 ResumePilot is an intelligent resume enhancement tool that leverages AI technology to help users create compelling, professional resumes. By combining React's powerful UI capabilities with AI-powered suggestions, ResumePilot helps job seekers optimize their resumes for better results.
 
