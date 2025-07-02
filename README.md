@@ -108,16 +108,7 @@ Enhanced AI capabilities
 Resume analytics dashboard
 
 ## Support 📧
-For support, please contact
-Clinton Reynolds - eastwood188209@gmail.com
-Jarred Hampton - jarred.c.hampton@gmail.com
-Dan McClintic -dan.mcclintic@gmail.com
-Matt Mullen - mhmullen@icloud.com
-Maggie Ellinwood - mellinwood1023@gmail.com
-Jay Contreras -
+For support, please contact: jarred@resumepilot.io
 
 ## License 📄
 This project is licensed under the MIT License
-
-
-Built with ❤️ using React and AI technology
